@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 
@@ -59,7 +60,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
