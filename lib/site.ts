@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Harshit Bhatia | Chief Technology Officer",
   description:
     "Building enterprise AI systems, computer vision platforms, and multi-agent applications.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://harshitbhatia.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://harshitbhatia.in",
   keywords: [
     "AI",
     "Enterprise AI",

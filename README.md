@@ -26,6 +26,7 @@ pnpm start
 ```
 
 Set `NEXT_PUBLIC_SITE_URL` to the production URL before deployment so sitemap and social metadata resolve to the final domain.
+For this site, use `https://harshitbhatia.in` as the canonical production URL and configure `https://www.harshitbhatia.in` as the alternate Vercel domain.
 
 ## Content
 
