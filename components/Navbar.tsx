@@ -1,0 +1,47 @@
+import { Download } from "lucide-react";
+import { navigation } from "@/content/site";
+import { siteConfig } from "@/lib/site";
+import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
+
+export function Navbar() {
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--border)] bg-[color:var(--background)]/85 px-6 backdrop-blur-md">
+      <nav
+        aria-label="Main navigation"
+        className="mx-auto flex h-16 max-w-7xl items-center justify-between"
+      >
+        <a
+          className="text-sm font-semibold tracking-[0.08em] text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
+          href="#top"
+        >
+          HB
+        </a>
+        <div className="hidden items-center gap-7 md:flex">
+          {navigation.map((item) => (
+            <a
+              className="text-sm text-[color:var(--muted)] transition-colors hover:text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
+              href={item.href}
+              key={item.href}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Button
+            aria-label="Download resume"
+            className="hidden sm:inline-flex"
+            href={siteConfig.links.resume}
+            icon={Download}
+            variant="secondary"
+            download
+          >
+            Resume
+          </Button>
+        </div>
+      </nav>
+    </header>
+  );
+}
