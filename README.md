@@ -9,8 +9,7 @@ A premium personal website for Harshit Bhatia, Chief Technology Officer, focused
 - Tailwind CSS v4
 - Framer Motion
 - Lucide React
-- Geist and Geist Mono
-- Vercel Analytics and Speed Insights
+- System font stack
 
 ## Setup
 
