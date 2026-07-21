@@ -9,7 +9,7 @@ export function Footer() {
     { label: "Projects", href: "/projects" },
     { label: "Speaking", href: "/talks" },
     { label: "GitHub", href: "https://github.com/bhatiaharshit07" },
-    { label: "LinkedIn", href: "https://in.linkedin.com/in/harshitbhatiacto" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/harshitbhatiacto" },
     { label: "Newsletter", href: "/#newsletter" },
   ];
 

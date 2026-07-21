@@ -6,7 +6,7 @@
 
 - [Harshit Bhatia](https://harshitbhatia.in/about): Canonical profile page for Harshit Bhatia, CTO at Assert AI, based in Delhi, India.
 - [Assert AI](https://www.linkedin.com/company/assert-ai/): Company where Harshit Bhatia serves as Chief Technology Officer.
-- [LinkedIn Profile](https://in.linkedin.com/in/harshitbhatiacto): Professional profile for Harshit Bhatia.
+- [LinkedIn Profile](https://www.linkedin.com/in/harshitbhatiacto): Professional profile for Harshit Bhatia.
 - [GitHub Profile](https://github.com/bhatiaharshit07): GitHub profile for Harshit Bhatia.
 
 ## Education
