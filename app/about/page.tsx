@@ -206,18 +206,21 @@ export default function AboutPage() {
                 <a
                   className="rounded-full border border-[color:var(--border)] px-5 py-3 text-sm font-medium text-[color:var(--foreground)] transition-colors hover:border-[color:var(--foreground)]"
                   href={siteConfig.url}
+                  title="Harshit Bhatia official website"
                 >
                   harshitbhatia.in
                 </a>
                 <a
                   className="rounded-full border border-[color:var(--border)] px-5 py-3 text-sm font-medium text-[color:var(--foreground)] transition-colors hover:border-[color:var(--foreground)]"
                   href={siteConfig.links.linkedin}
+                  title="Harshit Bhatia LinkedIn profile"
                 >
                   LinkedIn
                 </a>
                 <a
                   className="rounded-full border border-[color:var(--border)] px-5 py-3 text-sm font-medium text-[color:var(--foreground)] transition-colors hover:border-[color:var(--foreground)]"
                   href={siteConfig.links.github}
+                  title="Harshit Bhatia GitHub profile"
                 >
                   GitHub
                 </a>

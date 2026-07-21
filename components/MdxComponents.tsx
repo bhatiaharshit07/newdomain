@@ -82,6 +82,10 @@ export const mdxComponents = {
     <a
       {...props}
       className="font-medium text-[color:var(--accent)] underline-offset-4 hover:underline"
+      title={
+        props.title ??
+        (typeof props.children === "string" ? props.children : undefined)
+      }
     />
   ),
   Callout,

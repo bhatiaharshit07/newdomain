@@ -29,37 +29,34 @@ export default function Home() {
           <MotionReveal>
             <Badge>Enterprise AI · Computer Vision · Agentic Systems</Badge>
           </MotionReveal>
-          <MotionReveal delay={0.06}>
-            <h1 className="mt-8 max-w-5xl text-[48px] font-semibold leading-[0.95] tracking-normal text-[color:var(--foreground)] sm:text-7xl lg:text-[96px]">
-              Building Enterprise Agentic AI Systems that scale.
-            </h1>
-          </MotionReveal>
-          <MotionReveal delay={0.12}>
-            <div className="mt-8 flex items-center justify-center gap-4">
-              <div aria-hidden="true" className="hero-avatar">
-                <img
-                  alt="Harshit Bhatia, Chief Technology Officer at Assert AI"
-                  className="object-cover"
-                  height={160}
-                  src="/harshit-bhatia-avatar.jpeg"
-                  width={160}
-                />
-              </div>
-              <div className="max-w-[50ch] space-y-1 text-left">
-                <p className="text-xl font-medium text-[color:var(--foreground)] sm:text-2xl">
-                  Harshit Bhatia
-                </p>
-                <p className="text-base text-[color:var(--muted)] sm:text-lg">
-                  Chief Technology Officer
-                </p>
-                <p className="text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                  CTO at Assert AI specializing in Enterprise Agentic AI
-                  Systems, AI Platform Engineering, Computer Vision, Edge AI,
-                  and AI Security.
-                </p>
-              </div>
+          <h1 className="mt-8 max-w-5xl text-[48px] font-semibold leading-[0.95] tracking-normal text-[color:var(--foreground)] sm:text-7xl lg:text-[96px]">
+            Harshit Bhatia builds Enterprise Agentic AI Systems that scale.
+          </h1>
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <div aria-hidden="true" className="hero-avatar">
+              <img
+                alt="Harshit Bhatia, Chief Technology Officer at Assert AI"
+                className="object-cover"
+                fetchPriority="high"
+                height={160}
+                src="/harshit-bhatia-avatar.jpeg"
+                width={160}
+              />
             </div>
-          </MotionReveal>
+            <div className="max-w-[50ch] space-y-1 text-left">
+              <p className="text-xl font-medium text-[color:var(--foreground)] sm:text-2xl">
+                Enterprise Agentic AI CTO &amp; Architect
+              </p>
+              <p className="text-base text-[color:var(--muted)] sm:text-lg">
+                Chief Technology Officer at Assert AI
+              </p>
+              <p className="text-sm leading-6 text-[color:var(--muted)] sm:text-base">
+                Harshit Bhatia is a CTO and architect specializing in Enterprise
+                Agentic AI Systems, AI Platform Engineering, Computer Vision,
+                Edge AI, and AI Security.
+              </p>
+            </div>
+          </div>
           <MotionReveal delay={0.18}>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button href="/products">View Products</Button>
@@ -78,6 +75,7 @@ export default function Home() {
           aria-label="Scroll to mission statement"
           className="absolute bottom-8 left-1/2 inline-flex size-11 -translate-x-1/2 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--muted)] transition-colors hover:text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
           href="#mission"
+          title="Scroll to mission statement"
         >
           <span className="sr-only">Scroll to mission statement</span>
           <ArrowDown aria-hidden="true" size={18} />
@@ -222,6 +220,7 @@ export default function Home() {
                 <a
                   className="group flex min-h-32 items-center gap-4 rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] p-5 transition-colors hover:border-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
                   href={item.href}
+                  title={item.label}
                 >
                   <span className="inline-flex size-11 items-center justify-center rounded-full bg-[color:var(--soft)] text-[color:var(--accent)]">
                     <Icon aria-hidden="true" size={20} strokeWidth={1.75} />

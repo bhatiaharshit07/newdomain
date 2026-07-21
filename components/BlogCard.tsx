@@ -31,6 +31,7 @@ export function BlogCard({ post }: BlogCardProps) {
         aria-label={`Read ${post.title}`}
         className="mt-8 inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--foreground)] transition-colors group-hover:border-[color:var(--foreground)] group-hover:bg-[color:var(--foreground)] group-hover:text-[color:var(--background)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
         href="/insights"
+        title={`Read ${post.title}`}
       >
         <ArrowUpRight aria-hidden="true" size={18} />
       </Link>

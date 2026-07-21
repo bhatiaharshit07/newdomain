@@ -50,6 +50,7 @@ export function ContentCard({ entry }: ContentCardProps) {
         aria-label={`Read ${entry.title}`}
         className="mt-8 inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--foreground)] transition-colors group-hover:border-[color:var(--foreground)] group-hover:bg-[color:var(--foreground)] group-hover:text-[color:var(--background)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
         href={entry.url}
+        title={`Read ${entry.title}`}
       >
         <span className="sr-only">Read {entry.title}</span>
         <ArrowUpRight aria-hidden="true" size={18} />

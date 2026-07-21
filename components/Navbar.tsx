@@ -15,6 +15,7 @@ export function Navbar() {
         <Link
           className="text-sm font-semibold tracking-[0.08em] text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
           href="/"
+          title="Harshit Bhatia homepage"
         >
           HB
         </Link>
@@ -24,6 +25,7 @@ export function Navbar() {
               className="text-sm text-[color:var(--muted)] transition-colors hover:text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
               href={item.href}
               key={item.href}
+              title={item.label}
             >
               {item.label}
             </a>

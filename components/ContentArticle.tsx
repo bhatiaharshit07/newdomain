@@ -106,6 +106,7 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
                         className="block text-sm leading-6 text-[color:var(--muted)] transition-colors hover:text-[color:var(--foreground)]"
                         href={`#${heading.id}`}
                         key={heading.id}
+                        title={heading.text}
                       >
                         {heading.text}
                       </a>

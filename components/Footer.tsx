@@ -28,6 +28,7 @@ export function Footer() {
               className="transition-colors hover:text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
               href={link.href}
               key={link.label}
+              title={link.label}
             >
               {link.label}
             </a>

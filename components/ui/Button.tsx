@@ -27,14 +27,18 @@ export function Button({
   icon: Icon,
   external,
   className = "",
+  title,
   ...props
 }: ButtonProps) {
+  const linkTitle = title ?? (typeof children === "string" ? children : undefined);
+
   return (
     <a
       className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)] ${variants[variant]} ${className}`}
       href={href}
       rel={external ? "noreferrer" : undefined}
       target={external ? "_blank" : undefined}
+      title={linkTitle}
       {...props}
     >
       {Icon ? <Icon aria-hidden="true" size={18} strokeWidth={1.75} /> : null}
