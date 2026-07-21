@@ -51,9 +51,38 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.hero-portrait {
+  position: absolute;
+  right: max(2rem, calc((100vw - 80rem) / 2));
+  bottom: 5rem;
+  width: min(42vw, 32rem);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  opacity: 0.08;
+  filter: grayscale(1) contrast(1.05);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 74%, transparent 100%);
+  pointer-events: none;
+}
+
+:root[data-theme="dark"] .hero-portrait {
+  opacity: 0.14;
+}
+
 ::selection {
   background: var(--accent);
   color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .hero-portrait {
+    right: 50%;
+    bottom: 7rem;
+    width: min(82vw, 24rem);
+    transform: translateX(50%);
+    opacity: 0.06;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 70%, transparent 100%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

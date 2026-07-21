@@ -1,4 +1,5 @@
 import { ArrowDown, Download } from "lucide-react";
+import Image from "next/image";
 import { BlogCard } from "@/components/BlogCard";
 import { Footer } from "@/components/Footer";
 import { MetricGrid } from "@/components/MetricGrid";
@@ -18,7 +19,17 @@ export default function Home() {
     <main id="top">
       <Navbar />
       <section className="relative flex min-h-screen items-center px-6 pb-20 pt-28">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center text-center">
+        <div aria-hidden="true" className="hero-portrait">
+          <Image
+            alt=""
+            className="object-cover"
+            fill
+            priority
+            sizes="(min-width: 1024px) 42vw, 82vw"
+            src="/harshit-bhatia.jpeg"
+          />
+        </div>
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center">
           <MotionReveal>
             <Badge>Enterprise AI · Computer Vision · Agentic Systems</Badge>
           </MotionReveal>
