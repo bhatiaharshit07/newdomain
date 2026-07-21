@@ -17,8 +17,8 @@ export const metadata: Metadata = getPageMetadata({
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
-  dateCreated: "2026-07-21",
-  dateModified: "2026-07-21",
+  dateCreated: "2026-07-21T00:00:00+05:30",
+  dateModified: "2026-07-21T00:00:00+05:30",
   mainEntity: {
     "@id": `${siteConfig.url}/about#harshit-bhatia`,
     "@type": "Person",
