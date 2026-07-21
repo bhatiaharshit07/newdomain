@@ -38,7 +38,7 @@ export const siteConfig = {
     "Artificial Intelligence",
   ],
   links: {
-    linkedin: "https://www.linkedin.com/in/harshitbhatiacto",
+    linkedin: "https://www.linkedin.com/in/harshitbhatiacto/",
     github: "https://github.com/bhatiaharshit07",
     email: "mailto:bhatiaharshit07@gmail.com",
     resume: "/resume.pdf",

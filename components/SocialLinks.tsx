@@ -5,10 +5,22 @@ import { siteConfig } from "@/lib/site";
 export function SocialLinks() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      <Button external href={siteConfig.links.linkedin} icon={Linkedin} variant="secondary">
+      <Button
+        external
+        href={siteConfig.links.linkedin}
+        icon={Linkedin}
+        rel="me noopener noreferrer"
+        variant="secondary"
+      >
         LinkedIn
       </Button>
-      <Button external href={siteConfig.links.github} icon={Github} variant="secondary">
+      <Button
+        external
+        href={siteConfig.links.github}
+        icon={Github}
+        rel="me noopener noreferrer"
+        variant="secondary"
+      >
         GitHub
       </Button>
       <Button href={siteConfig.links.email} icon={Mail}>

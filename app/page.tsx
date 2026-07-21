@@ -103,6 +103,55 @@ export default function Home() {
 
       <Section
         className="border-y border-[color:var(--border)] bg-[color:var(--surface)]"
+        eyebrow="Profile"
+        title="Enterprise AI leadership in context."
+      >
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <MotionReveal>
+            <p className="max-w-[58ch] text-xl leading-8 text-[color:var(--foreground)]">
+              Harshit Bhatia is the Chief Technology Officer at Assert AI,
+              based in Delhi, India, focused on building Enterprise Agentic AI
+              Systems that move from strategy and architecture into production
+              operations.
+            </p>
+          </MotionReveal>
+          <div className="grid gap-6 text-base leading-7 text-[color:var(--muted)] sm:grid-cols-2">
+            <MotionReveal delay={0.04}>
+              <p>
+                His work connects AI platform engineering, computer vision,
+                edge AI, LLM applications, workflow automation, and AI security
+                into systems that teams can operate, observe, govern, and scale.
+              </p>
+            </MotionReveal>
+            <MotionReveal delay={0.08}>
+              <p>
+                The operating focus is practical: define the right enterprise
+                use case, design the product boundary, build reliable data and
+                model pipelines, add guardrails, and measure whether the system
+                improves business outcomes.
+              </p>
+            </MotionReveal>
+            <MotionReveal delay={0.12}>
+              <p>
+                This site collects his reference architectures, AI playbooks,
+                product notes, research, and CTO leadership writing for builders
+                working on agentic products, multi-agent systems, Enterprise
+                RAG, AI gateways, and production LLM platforms.
+              </p>
+            </MotionReveal>
+            <MotionReveal delay={0.16}>
+              <p>
+                The goal is long-term technical compounding: infrastructure that
+                remains dependable after the demo, product decisions that survive
+                customer complexity, and AI interfaces that become partners in
+                real operational work.
+              </p>
+            </MotionReveal>
+          </div>
+        </div>
+      </Section>
+
+      <Section
         eyebrow="Enterprise AI Practice"
         title="How I approach durable agentic systems."
       >

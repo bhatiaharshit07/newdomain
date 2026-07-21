@@ -9,7 +9,10 @@ export function Footer() {
     { label: "Projects", href: "/projects" },
     { label: "Speaking", href: "/talks" },
     { label: "GitHub", href: "https://github.com/bhatiaharshit07" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/harshitbhatiacto" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/harshitbhatiacto/",
+    },
     { label: "Newsletter", href: "/#newsletter" },
   ];
 
@@ -28,6 +31,11 @@ export function Footer() {
               className="transition-colors hover:text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
               href={link.href}
               key={link.label}
+              rel={
+                link.href.startsWith("https://")
+                  ? "me noopener noreferrer"
+                  : undefined
+              }
               title={link.label}
             >
               {link.label}

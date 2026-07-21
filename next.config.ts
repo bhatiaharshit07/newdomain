@@ -33,6 +33,28 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/index.html",
+        has: [
+          {
+            type: "host",
+            value: "www.harshitbhatia.in",
+          },
+        ],
+        destination: "https://harshitbhatia.in/",
+        permanent: true,
+      },
+      {
+        source: "/index.php",
+        has: [
+          {
+            type: "host",
+            value: "www.harshitbhatia.in",
+          },
+        ],
+        destination: "https://harshitbhatia.in/",
+        permanent: true,
+      },
+      {
         source: "/:path*",
         has: [
           {
@@ -41,6 +63,16 @@ const nextConfig: NextConfig = {
           },
         ],
         destination: "https://harshitbhatia.in/:path*",
+        permanent: true,
+      },
+      {
+        source: "/index.html",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/index.php",
+        destination: "/",
         permanent: true,
       },
       {
