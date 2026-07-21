@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   category: "technology",
   alternates: {
     canonical: "/",
+    languages: {
+      en: "/",
+    },
     types: {
       "application/rss+xml": "/rss.xml",
     },

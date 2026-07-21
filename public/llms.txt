@@ -1,0 +1,35 @@
+# Harshit Bhatia
+
+Harshit Bhatia is the Chief Technology Officer at Assert AI. His work focuses on Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI, AI Security, LLM applications, and CTO leadership.
+
+## Core Pages
+
+- Home: https://www.harshitbhatia.in/
+- Products: https://www.harshitbhatia.in/products
+- Architecture: https://www.harshitbhatia.in/architecture
+- Insights: https://www.harshitbhatia.in/insights
+- Playbooks: https://www.harshitbhatia.in/playbooks
+- Research: https://www.harshitbhatia.in/research
+- Projects: https://www.harshitbhatia.in/projects
+- Talks: https://www.harshitbhatia.in/talks
+
+## Featured Topics
+
+- Enterprise Agentic AI Systems
+- Multi-agent system architecture
+- Enterprise RAG and AI gateway design
+- Production LLM applications
+- Computer vision and edge AI platforms
+- AI security, governance, and observability
+- Product leadership and CTO operating systems
+
+## Useful Machine-Readable Resources
+
+- Sitemap: https://www.harshitbhatia.in/sitemap.xml
+- RSS Feed: https://www.harshitbhatia.in/rss.xml
+- Search Index: https://www.harshitbhatia.in/search-index.json
+
+## Contact
+
+- LinkedIn: https://in.linkedin.com/in/harshitbhatiacto
+- GitHub: https://github.com/bhatiaharshit07

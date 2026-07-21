@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import { contentTypes, type ContentEntry } from "@/lib/content";
 
 type ContentCardProps = {
@@ -12,10 +12,11 @@ export function ContentCard({ entry }: ContentCardProps) {
       <div>
         {entry.cover ? (
           <div className="mb-6 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
-            <Image
+            <img
               alt={`Cover image for ${entry.title}`}
               className="aspect-[16/9] w-full object-cover"
               height={360}
+              loading="lazy"
               src={entry.cover}
               width={640}
             />

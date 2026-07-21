@@ -26,11 +26,11 @@ export function ContentProgressBar() {
   }, []);
 
   return (
-    <div className="fixed inset-x-0 top-16 z-40 h-px bg-transparent">
-      <div
-        className="h-px bg-[color:var(--accent)]"
-        style={{ width: `${progress}%` }}
-      />
-    </div>
+    <progress
+      aria-label="Reading progress"
+      className="reading-progress fixed inset-x-0 top-16 z-40 h-px w-full"
+      max={100}
+      value={progress}
+    />
   );
 }

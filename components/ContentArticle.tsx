@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { MDXRemote } from "next-mdx-remote/rsc";
-import Image from "next/image";
 import { ContentCard } from "@/components/ContentCard";
 import { ContentProgressBar } from "@/components/ContentProgressBar";
 import { JsonLd } from "@/components/JsonLd";
@@ -80,11 +80,10 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
             </div>
             {entry.cover ? (
               <figure className="mt-10 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
-                <Image
+                <img
                   alt={`Cover image for ${entry.title}`}
                   className="h-auto w-full object-cover"
                   height={720}
-                  priority
                   src={entry.cover}
                   width={1280}
                 />

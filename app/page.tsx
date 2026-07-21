@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { ArrowDown, Download } from "lucide-react";
-import Image from "next/image";
 import { ContentIndex } from "@/components/ContentIndex";
 import { Footer } from "@/components/Footer";
 import { MetricGrid } from "@/components/MetricGrid";
@@ -37,13 +37,12 @@ export default function Home() {
           <MotionReveal delay={0.12}>
             <div className="mt-8 flex items-center justify-center gap-4">
               <div aria-hidden="true" className="hero-avatar">
-                <Image
+                <img
                   alt="Harshit Bhatia, Chief Technology Officer at Assert AI"
                   className="object-cover"
-                  fill
-                  priority
-                  sizes="56px"
-                  src="/harshit-bhatia.jpeg"
+                  height={160}
+                  src="/harshit-bhatia-avatar.jpeg"
+                  width={160}
                 />
               </div>
               <div className="max-w-[50ch] space-y-1 text-left">
@@ -102,6 +101,55 @@ export default function Home() {
 
       <Section eyebrow="Scale" title="Systems that leave the demo room.">
         <MetricGrid />
+      </Section>
+
+      <Section
+        className="border-y border-[color:var(--border)] bg-[color:var(--surface)]"
+        eyebrow="Enterprise AI Practice"
+        title="How I approach durable agentic systems."
+      >
+        <div className="grid gap-4 lg:grid-cols-3">
+          <MotionReveal>
+            <article className="h-full rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)] p-7">
+              <h3 className="text-2xl font-semibold leading-tight text-[color:var(--foreground)]">
+                Product before prototypes
+              </h3>
+              <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
+                Enterprise AI succeeds when models are shaped into reliable
+                product workflows. I focus on use-case selection, system
+                boundaries, measurable outcomes, and adoption paths so agentic
+                interfaces solve real operational problems instead of becoming
+                isolated demos.
+              </p>
+            </article>
+          </MotionReveal>
+          <MotionReveal delay={0.06}>
+            <article className="h-full rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)] p-7">
+              <h3 className="text-2xl font-semibold leading-tight text-[color:var(--foreground)]">
+                Architecture with guardrails
+              </h3>
+              <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
+                Production AI systems need observability, evaluation, security,
+                human approval, and rollback paths from the beginning. My work
+                connects LLMs, computer vision, edge pipelines, data platforms,
+                and business systems through architecture that can be trusted.
+              </p>
+            </article>
+          </MotionReveal>
+          <MotionReveal delay={0.12}>
+            <article className="h-full rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)] p-7">
+              <h3 className="text-2xl font-semibold leading-tight text-[color:var(--foreground)]">
+                Leadership through ambiguity
+              </h3>
+              <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
+                As CTO, the hard part is not only choosing technology. It is
+                building teams that can make tradeoffs, say no to distracting
+                work, and keep compounding platforms while customers, products,
+                and AI capabilities keep changing.
+              </p>
+            </article>
+          </MotionReveal>
+        </div>
       </Section>
 
       <Section

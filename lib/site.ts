@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Harshit Bhatia",
-  title: "Harshit Bhatia | Enterprise AI CTO",
+  title: "Harshit Bhatia | Enterprise Agentic AI CTO & Architect",
   description:
     "Harshit Bhatia, CTO at Assert AI, builds enterprise agentic AI systems across platform engineering, computer vision, edge AI and AI security.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.harshitbhatia.in",
