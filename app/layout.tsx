@@ -107,6 +107,10 @@ const structuredData = [
       "@type": "Place",
       name: siteConfig.location,
     },
+    alumniOf: siteConfig.education.map((education) => ({
+      "@type": "CollegeOrUniversity",
+      name: education.school,
+    })),
     url: `${siteConfig.url}/about`,
     sameAs: [siteConfig.links.linkedin, siteConfig.links.github],
     knowsAbout: [
@@ -119,6 +123,8 @@ const structuredData = [
       "LLM Applications",
       "Product Leadership",
       "CTO Leadership",
+      "Organizational Leadership",
+      "Digital Economy",
     ],
   },
   {

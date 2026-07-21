@@ -7,10 +7,24 @@ export const siteConfig = {
   location: "Delhi, India",
   role: "Chief Technology Officer",
   company: "Assert AI",
+  education: [
+    {
+      school: "Indian School of Business",
+      program: "Emerging Leaders Programme, Organizational Leadership",
+      period: "Jun 2024 - Jan 2025",
+    },
+    {
+      school: "Maharaja Surajmal Institute Of Technology",
+      program: "Bachelor of Technology - BTech",
+      period: "Apr 2017 - May 2021",
+    },
+  ],
   keywords: [
     "Harshit Bhatia",
     "Harshit Bhatia CTO",
     "Harshit Bhatia Delhi",
+    "Harshit Bhatia ISB",
+    "Indian School of Business",
     "AI",
     "Enterprise AI",
     "Enterprise Agentic AI Systems",

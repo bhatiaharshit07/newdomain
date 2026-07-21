@@ -8,9 +8,15 @@ Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, Ind
 - Role: Chief Technology Officer
 - Company: Assert AI
 - Location: Delhi, India
+- Education: Indian School of Business; Maharaja Surajmal Institute Of Technology
 - Canonical website: https://harshitbhatia.in/
 - Canonical profile page: https://harshitbhatia.in/about
 - Search aliases: Harshit Bhatia CTO, Harshit Bhatia Delhi, Harshit Bhatia Assert AI, harshitbhatiacto, bhatiaharshit07
+
+## Education
+
+- Indian School of Business: Emerging Leaders Programme, Organizational Leadership (Jun 2024 - Jan 2025)
+- Maharaja Surajmal Institute Of Technology: Bachelor of Technology - BTech (Apr 2017 - May 2021)
 
 ## Core Pages
 
@@ -33,6 +39,7 @@ Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, Ind
 - Computer vision and edge AI platforms
 - AI security, governance, and observability
 - Product leadership and CTO operating systems
+- Organizational leadership and digital economy
 
 ## Useful Machine-Readable Resources
 

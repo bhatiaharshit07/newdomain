@@ -50,6 +50,10 @@ const personSchema = {
       "@type": "Place",
       name: "Delhi, India",
     },
+    alumniOf: siteConfig.education.map((education) => ({
+      "@type": "CollegeOrUniversity",
+      name: education.school,
+    })),
     knowsAbout: [
       "Enterprise Agentic AI Systems",
       "AI Platform Engineering",
@@ -60,6 +64,8 @@ const personSchema = {
       "Multi-Agent Systems",
       "Product Leadership",
       "CTO Leadership",
+      "Organizational Leadership",
+      "Digital Economy",
     ],
   },
 };
@@ -127,6 +133,11 @@ export default function AboutPage() {
                 Security, and production LLM applications.
               </p>
               <p className="mt-5 max-w-[72ch] text-lg leading-8 text-[color:var(--muted)]">
+                He completed the Emerging Leaders Programme in Organizational
+                Leadership at the Indian School of Business and holds a Bachelor
+                of Technology from Maharaja Surajmal Institute Of Technology.
+              </p>
+              <p className="mt-5 max-w-[72ch] text-lg leading-8 text-[color:var(--muted)]">
                 This website is the canonical personal site for Harshit Bhatia,
                 including his architecture notes, playbooks, research, product
                 thinking, and CTO leadership writing.
@@ -154,6 +165,30 @@ export default function AboutPage() {
                   >
                     {item}
                   </div>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-3xl font-semibold leading-tight text-[color:var(--foreground)]">
+                Education
+              </h2>
+              <div className="mt-5 grid gap-4">
+                {siteConfig.education.map((education) => (
+                  <article
+                    className="rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] p-5"
+                    key={education.school}
+                  >
+                    <h3 className="text-xl font-semibold text-[color:var(--foreground)]">
+                      {education.school}
+                    </h3>
+                    <p className="mt-2 text-base leading-7 text-[color:var(--muted)]">
+                      {education.program}
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-[color:var(--muted)]">
+                      {education.period}
+                    </p>
+                  </article>
                 ))}
               </div>
             </section>
