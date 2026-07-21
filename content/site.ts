@@ -16,6 +16,7 @@ import type {
 } from "@/types/site";
 
 export const navigation: NavigationItem[] = [
+  { label: "About", href: "/about" },
   { label: "Products", href: "/products" },
   { label: "Architecture", href: "/architecture" },
   { label: "Insights", href: "/insights" },

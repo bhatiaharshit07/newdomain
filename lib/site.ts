@@ -4,7 +4,13 @@ export const siteConfig = {
   description:
     "Harshit Bhatia, CTO at Assert AI, builds enterprise agentic AI systems across platform engineering, computer vision, edge AI and AI security.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.harshitbhatia.in",
+  location: "Delhi, India",
+  role: "Chief Technology Officer",
+  company: "Assert AI",
   keywords: [
+    "Harshit Bhatia",
+    "Harshit Bhatia CTO",
+    "Harshit Bhatia Delhi",
     "AI",
     "Enterprise AI",
     "Enterprise Agentic AI Systems",

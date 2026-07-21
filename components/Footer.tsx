@@ -1,6 +1,7 @@
 export function Footer() {
   const footerLinks = [
     { label: "Enterprise Agentic AI Systems", href: "/#top" },
+    { label: "About Harshit Bhatia", href: "/about" },
     { label: "Insights", href: "/insights" },
     { label: "Architecture", href: "/architecture" },
     { label: "Playbooks", href: "/playbooks" },

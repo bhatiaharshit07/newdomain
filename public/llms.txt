@@ -1,10 +1,21 @@
 # Harshit Bhatia
 
-Harshit Bhatia is the Chief Technology Officer at Assert AI. His work focuses on Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI, AI Security, LLM applications, and CTO leadership.
+Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, India. His work focuses on Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI, AI Security, LLM applications, and CTO leadership.
+
+## Entity Identity
+
+- Primary name: Harshit Bhatia
+- Role: Chief Technology Officer
+- Company: Assert AI
+- Location: Delhi, India
+- Canonical website: https://www.harshitbhatia.in/
+- Canonical profile page: https://www.harshitbhatia.in/about
+- Search aliases: Harshit Bhatia CTO, Harshit Bhatia Delhi, Harshit Bhatia Assert AI, harshitbhatiacto, bhatiaharshit07
 
 ## Core Pages
 
 - Home: https://www.harshitbhatia.in/
+- About Harshit Bhatia: https://www.harshitbhatia.in/about
 - Products: https://www.harshitbhatia.in/products
 - Architecture: https://www.harshitbhatia.in/architecture
 - Insights: https://www.harshitbhatia.in/insights

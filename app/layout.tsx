@@ -85,13 +85,29 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${siteConfig.url}/about#harshit-bhatia`,
     name: siteConfig.name,
-    jobTitle: "Chief Technology Officer",
+    alternateName: [
+      "Harshit Bhatia CTO",
+      "Harshit Bhatia Delhi",
+      "Harshit Bhatia Assert AI",
+      "bhatiaharshit07",
+      "harshitbhatiacto",
+    ],
+    description:
+      "Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, India, focused on Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI, and AI Security.",
+    image: `${siteConfig.url}/harshit-bhatia-avatar.jpeg`,
+    jobTitle: siteConfig.role,
     worksFor: {
       "@type": "Organization",
-      name: "Assert AI",
+      name: siteConfig.company,
+      url: "https://www.linkedin.com/company/assert-ai/",
     },
-    url: siteConfig.url,
+    homeLocation: {
+      "@type": "Place",
+      name: siteConfig.location,
+    },
+    url: `${siteConfig.url}/about`,
     sameAs: [siteConfig.links.linkedin, siteConfig.links.github],
     knowsAbout: [
       "Enterprise Agentic AI Systems",
@@ -100,6 +116,9 @@ const structuredData = [
       "Edge AI",
       "AI Security",
       "Multi-Agent Systems",
+      "LLM Applications",
+      "Product Leadership",
+      "CTO Leadership",
     ],
   },
   {
@@ -115,7 +134,11 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteConfig.name,
-    alternateName: "Harshit Bhatia - Enterprise Agentic AI Systems",
+    alternateName: [
+      "Harshit Bhatia - Enterprise Agentic AI Systems",
+      "Harshit Bhatia CTO",
+      "Harshit Bhatia Delhi",
+    ],
     url: siteConfig.url,
     potentialAction: {
       "@type": "SearchAction",

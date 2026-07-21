@@ -1,4 +1,5 @@
 import { Download } from "lucide-react";
+import Link from "next/link";
 import { navigation } from "@/content/site";
 import { siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
@@ -11,12 +12,12 @@ export function Navbar() {
         aria-label="Main navigation"
         className="mx-auto flex h-16 max-w-7xl items-center justify-between"
       >
-        <a
+        <Link
           className="text-sm font-semibold tracking-[0.08em] text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
-          href="#top"
+          href="/"
         >
           HB
-        </a>
+        </Link>
         <div className="hidden items-center gap-7 md:flex">
           {navigation.map((item) => (
             <a
