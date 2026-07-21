@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Harshit Bhatia - Chief Technology Officer building enterprise AI that scales.",
+        alt: "Harshit Bhatia - Chief Technology Officer specializing in Enterprise Agentic AI Systems.",
       },
     ],
   },
@@ -54,6 +54,73 @@ export const metadata: Metadata = {
     shortcut: "/favicon.svg",
   },
 };
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: siteConfig.name,
+    jobTitle: "Chief Technology Officer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Assert AI",
+    },
+    url: siteConfig.url,
+    sameAs: [siteConfig.links.linkedin, siteConfig.links.github],
+    knowsAbout: [
+      "Enterprise Agentic AI Systems",
+      "AI Platform Engineering",
+      "Computer Vision",
+      "Edge AI",
+      "AI Security",
+      "Multi-Agent Systems",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Assert AI",
+    employee: {
+      "@type": "Person",
+      name: siteConfig.name,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.title,
+    url: siteConfig.url,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteConfig.url}/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteConfig.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Architecture",
+        item: `${siteConfig.url}/#architecture`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Knowledge",
+        item: `${siteConfig.url}/#knowledge`,
+      },
+    ],
+  },
+];
 
 export default function RootLayout({
   children,
@@ -76,6 +143,10 @@ export default function RootLayout({
             gtag('config', 'G-5MPYTLCK21');
           `}
         </Script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body>
         {children}

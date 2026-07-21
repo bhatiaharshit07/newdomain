@@ -22,12 +22,14 @@ export function BlogCard({ post }: BlogCardProps) {
         <h3 className="mt-5 text-2xl font-semibold leading-tight text-[color:var(--foreground)]">
           {post.title}
         </h3>
-        <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">{post.excerpt}</p>
+        <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
+          {post.excerpt}
+        </p>
       </div>
       <a
         aria-label={`Read ${post.title}`}
         className="mt-8 inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--foreground)] transition-colors group-hover:border-[color:var(--foreground)] group-hover:bg-[color:var(--foreground)] group-hover:text-[color:var(--background)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
-        href="#writing"
+        href="/articles"
       >
         <ArrowUpRight aria-hidden="true" size={18} />
       </a>

@@ -7,6 +7,11 @@ export type Metric = {
   display?: string;
 };
 
+export type NavigationItem = {
+  label: string;
+  href: string;
+};
+
 export type Product = {
   name: string;
   title: string;
@@ -25,6 +30,8 @@ export type TimelineItem = {
 export type FocusItem = {
   label: string;
   icon: LucideIcon;
+  href: string;
+  detail: string;
 };
 
 export type BlogPost = {
@@ -32,4 +39,18 @@ export type BlogPost = {
   excerpt: string;
   date: string;
   readTime: string;
+};
+
+export type ArchitectureTopic = {
+  title: string;
+  description: string;
+  tags: string[];
+  github: string;
+  references: string;
+};
+
+export type SpeakingItem = {
+  format: string;
+  title: string;
+  description: string;
 };

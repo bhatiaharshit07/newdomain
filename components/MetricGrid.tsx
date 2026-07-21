@@ -5,7 +5,7 @@ import { metrics } from "@/content/site";
 
 export function MetricGrid() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
       {metrics.map((metric, index) => (
         <MotionReveal delay={index * 0.06} key={metric.label}>
           <Card className="p-6">
@@ -16,7 +16,9 @@ export function MetricGrid() {
                 value={metric.value}
               />
             </p>
-            <p className="mt-4 text-sm text-[color:var(--muted)]">{metric.label}</p>
+            <p className="mt-4 text-sm text-[color:var(--muted)]">
+              {metric.label}
+            </p>
           </Card>
         </MotionReveal>
       ))}
