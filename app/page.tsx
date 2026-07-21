@@ -2,7 +2,6 @@ import { ArrowDown, Download } from "lucide-react";
 import Image from "next/image";
 import { BlogCard } from "@/components/BlogCard";
 import { Footer } from "@/components/Footer";
-import { LinkedInBadge } from "@/components/LinkedInBadge";
 import { MetricGrid } from "@/components/MetricGrid";
 import { MotionReveal } from "@/components/Motion";
 import { Navbar } from "@/components/Navbar";
@@ -177,9 +176,6 @@ export default function Home() {
           </MotionReveal>
           <div className="mt-10">
             <SocialLinks />
-          </div>
-          <div className="mt-8 flex justify-center">
-            <LinkedInBadge />
           </div>
         </div>
       </Section>

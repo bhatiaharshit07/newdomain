@@ -67,18 +67,6 @@ body {
   object-position: 50% 20%;
 }
 
-.linkedin-badge-shell {
-  display: flex;
-  min-height: 84px;
-  width: min(100%, 360px);
-  justify-content: center;
-  overflow: hidden;
-}
-
-.linkedin-badge-shell > .LI-profile-badge {
-  max-width: 100%;
-}
-
 ::selection {
   background: var(--accent);
   color: #ffffff;
