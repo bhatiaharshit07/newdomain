@@ -7,8 +7,6 @@ import {
   Workflow,
 } from "lucide-react";
 import type {
-  ArchitectureTopic,
-  BlogPost,
   FocusItem,
   Metric,
   NavigationItem,
@@ -20,7 +18,7 @@ import type {
 export const navigation: NavigationItem[] = [
   { label: "Products", href: "/products" },
   { label: "Architecture", href: "/architecture" },
-  { label: "Knowledge", href: "/articles" },
+  { label: "Insights", href: "/insights" },
   { label: "Speaking", href: "/talks" },
   { label: "Discussion", href: "/#contact" },
 ];
@@ -107,7 +105,7 @@ export const focus: FocusItem[] = [
   {
     label: "LangGraph",
     icon: GitBranch,
-    href: "/articles",
+    href: "/insights",
     detail: "Articles, patterns, implementation notes",
   },
   {
@@ -119,7 +117,7 @@ export const focus: FocusItem[] = [
   {
     label: "LLMs",
     icon: BrainCircuit,
-    href: "/articles",
+    href: "/insights",
     detail: "Model routing, evaluation, product fit",
   },
   {
@@ -133,57 +131,6 @@ export const focus: FocusItem[] = [
     icon: Workflow,
     href: "/architecture",
     detail: "Memory, tools, governance, observability",
-  },
-];
-
-export const writing: BlogPost[] = [
-  {
-    title: "The Operator Interface for Enterprise Agentic AI Systems",
-    excerpt:
-      "Why the next wave of AI products will be judged by workflow fit, not model novelty.",
-    date: "2026-07-01",
-    readTime: "5 min read",
-  },
-  {
-    title: "Computer Vision After the Demo",
-    excerpt:
-      "Production lessons from turning visual recognition into dependable operational software.",
-    date: "2026-06-12",
-    readTime: "7 min read",
-  },
-  {
-    title: "Building Teams Around Ambiguity",
-    excerpt:
-      "A practical lens for hiring, architecture, and delivery when the product frontier keeps moving.",
-    date: "2026-05-24",
-    readTime: "4 min read",
-  },
-];
-
-export const architectureTopics: ArchitectureTopic[] = [
-  {
-    title: "Enterprise Agentic AI",
-    description:
-      "Reference architecture for agents, tools, memory, approvals, and enterprise controls.",
-    tags: ["Diagram", "Tradeoffs", "Discussion"],
-    github: "https://github.com/bhatiaharshit07",
-    references: "/articles",
-  },
-  {
-    title: "AI Gateway + Model Routing",
-    description:
-      "A control plane for model choice, fallback, observability, cost, and policy enforcement.",
-    tags: ["Model Routing", "AI Security", "Observability"],
-    github: "https://github.com/bhatiaharshit07",
-    references: "/articles",
-  },
-  {
-    title: "Computer Vision Pipeline",
-    description:
-      "Cloud and edge architecture for visual events, inference, streaming, and operations.",
-    tags: ["Computer Vision", "Edge AI", "Events"],
-    github: "https://github.com/bhatiaharshit07",
-    references: "/articles",
   },
 ];
 

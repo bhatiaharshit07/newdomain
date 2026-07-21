@@ -1,6 +1,6 @@
-import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import Image from "next/image";
-import { BlogCard } from "@/components/BlogCard";
+import { ContentIndex } from "@/components/ContentIndex";
 import { Footer } from "@/components/Footer";
 import { MetricGrid } from "@/components/MetricGrid";
 import { MotionReveal } from "@/components/Motion";
@@ -11,17 +11,14 @@ import { SocialLinks } from "@/components/SocialLinks";
 import { Timeline } from "@/components/Timeline";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import {
-  architectureTopics,
-  focus,
-  philosophies,
-  products,
-  speaking,
-  writing,
-} from "@/content/site";
+import { focus, philosophies, products, speaking } from "@/content/site";
+import { getContentByType, getFeaturedContent } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 
 export default function Home() {
+  const architectureEntries = getContentByType("architecture").slice(0, 3);
+  const featuredContent = getFeaturedContent(3);
+
   return (
     <main id="top">
       <Navbar />
@@ -126,52 +123,7 @@ export default function Home() {
         id="architecture"
         title="Reference systems for enterprise AI."
       >
-        <div className="grid gap-4 lg:grid-cols-3">
-          {architectureTopics.map((topic, index) => (
-            <MotionReveal delay={index * 0.06} key={topic.title}>
-              <article className="flex min-h-[360px] flex-col justify-between rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] p-7 transition-colors hover:border-[color:var(--foreground)]">
-                <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-[color:var(--accent)]">
-                    Diagram - Explanation - Tradeoffs
-                  </p>
-                  <h3 className="mt-5 text-2xl font-semibold leading-tight text-[color:var(--foreground)]">
-                    {topic.title}
-                  </h3>
-                  <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
-                    {topic.description}
-                  </p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {topic.tags.map((tag) => (
-                      <span
-                        className="rounded-full bg-[color:var(--soft)] px-3 py-1 text-sm text-[color:var(--muted)]"
-                        key={tag}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Button
-                    external
-                    href={topic.github}
-                    icon={ArrowUpRight}
-                    variant="secondary"
-                  >
-                    GitHub
-                  </Button>
-                  <Button
-                    href={topic.references}
-                    icon={ArrowUpRight}
-                    variant="ghost"
-                  >
-                    References
-                  </Button>
-                </div>
-              </article>
-            </MotionReveal>
-          ))}
-        </div>
+        <ContentIndex entries={architectureEntries} />
       </Section>
 
       <Section
@@ -240,15 +192,11 @@ export default function Home() {
 
       <Section
         className="border-y border-[color:var(--border)] bg-[color:var(--surface-muted)]"
-        eyebrow="Knowledge"
+        eyebrow="Insights"
         id="knowledge"
         title="Notes for builders of enterprise agentic AI systems."
       >
-        <div className="grid gap-4 lg:grid-cols-3">
-          {writing.map((post) => (
-            <BlogCard key={post.title} post={post} />
-          ))}
-        </div>
+        <ContentIndex entries={featuredContent} />
       </Section>
 
       <Section

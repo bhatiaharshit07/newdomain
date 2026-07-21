@@ -1,0 +1,90 @@
+---
+title: Multi-Agent Orchestrator Reference Architecture
+slug: multi-agent-orchestrator
+description: A production-oriented architecture for routing, memory, tool access, approvals, and observability in enterprise agent systems.
+published: 2026-07-21
+updated: 2026-07-21
+author: Harshit Bhatia
+category: Architecture
+tags:
+  - Multi-Agent Systems
+  - Agentic AI
+  - Architecture
+  - AI Security
+featured: true
+readingTime: 12
+difficulty: Advanced
+series: Enterprise Agent Series
+seoTitle: Multi-Agent Orchestrator Reference Architecture
+seoDescription: Reference architecture for enterprise multi-agent systems with routing, memory, tools, approvals, observability, and governance.
+---
+
+## Problem
+
+Enterprise agent systems need predictable orchestration. A single agent with broad tool access becomes difficult to test, govern, and debug as workflows grow.
+
+## Constraints
+
+- Users ask broad questions.
+- Data lives across systems.
+- Tools have different permissions and failure modes.
+- Teams need logs, approvals, and ownership.
+- Security teams need policy boundaries before deployment.
+
+## Solution
+
+<Architecture title="Orchestration layers">
+
+- Intent Router
+- Planner
+- Specialist Agents
+- Tool Gateway
+- Memory Service
+- Human Approval Queue
+- Evaluation and Observability
+
+</Architecture>
+
+<Mermaid
+  chart={`graph LR
+User[User Goal] --> Router[Intent Router]
+Router --> Planner[Planner]
+Planner --> Agents[Specialist Agents]
+Agents --> Gateway[Tool Gateway]
+Gateway --> Systems[Enterprise Systems]
+Agents --> Memory[Memory Service]
+Agents --> Approval[Human Approval]
+Agents --> Eval[Evaluation Loop]`}
+/>
+
+## Components
+
+The orchestrator should not own every detail. It should coordinate bounded components, each with a clear contract and failure mode.
+
+## APIs
+
+The most important API is not the LLM call. It is the interface between the planner, tools, memory, and approval system.
+
+## Data Flow
+
+Every agent action should emit a trace event. The trace should include input, selected tool, policy result, output, confidence, and escalation decision.
+
+## Scaling
+
+Start with fewer roles and stronger evaluation. Add more agents only when responsibility becomes clearer, not when prompts become longer.
+
+## Security
+
+Never let an agent bypass the same controls a human operator would face.
+
+<Warning>
+  Never let an LLM directly access production databases without policy,
+  read/write separation, logging, and approval boundaries.
+</Warning>
+
+## Future Improvements
+
+- Cost-aware model routing
+- Agent-specific evaluation suites
+- Red-team scenarios for tool abuse
+- Replayable traces for incident review

@@ -115,8 +115,8 @@ const structuredData = [
       {
         "@type": "ListItem",
         position: 3,
-        name: "Knowledge",
-        item: `${siteConfig.url}/#knowledge`,
+        name: "Insights",
+        item: `${siteConfig.url}/insights`,
       },
     ],
   },

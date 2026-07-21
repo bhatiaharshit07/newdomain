@@ -6,21 +6,21 @@ import { Section } from "@/components/Section";
 import { getContentByType } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Articles",
+  title: "Projects",
   description:
-    "Articles and knowledge notes on Enterprise Agentic AI Systems, AI platform engineering, computer vision, Edge AI, and AI security.",
+    "Project architecture notes for Alpha, Pratham, LOGIX, computer vision platforms, and enterprise AI systems.",
 };
 
-export default function ArticlesPage() {
-  const entries = getContentByType("insights");
+export default function ProjectsPage() {
+  const entries = getContentByType("projects");
 
   return (
     <main>
       <Navbar />
       <Section
         className="pt-32"
-        eyebrow="Articles"
-        title="Knowledge for builders of Enterprise Agentic AI Systems."
+        eyebrow="Projects"
+        title="Product and platform architecture notes."
       >
         <ContentIndex entries={entries} />
       </Section>

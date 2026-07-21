@@ -1,0 +1,60 @@
+---
+title: Enterprise RAG Reference Architecture
+slug: enterprise-rag-reference-architecture
+description: A reference architecture for retrieval, ranking, security, evaluation, and observability in enterprise RAG systems.
+published: 2026-07-21
+updated: 2026-07-21
+author: Harshit Bhatia
+category: Enterprise AI
+tags:
+  - Enterprise RAG
+  - Architecture
+  - LLMs
+  - AI Security
+featured: true
+readingTime: 10
+difficulty: Intermediate
+series: Enterprise AI Architecture
+seoTitle: Enterprise RAG Reference Architecture
+seoDescription: Practical reference architecture for enterprise RAG with ingestion, permissions, ranking, evaluation, observability, and governance.
+---
+
+## Problem
+
+Enterprise RAG fails when it treats retrieval as a vector database problem instead of a product, security, and evaluation problem.
+
+## Constraints
+
+- Documents have access rules.
+- Knowledge becomes stale.
+- Users ask incomplete questions.
+- Results need citations.
+- Teams need measurable quality.
+
+## Solution
+
+<Mermaid
+  chart={`graph LR
+Sources[Enterprise Sources] --> Ingestion[Ingestion Pipeline]
+Ingestion --> Permissions[Permission Index]
+Ingestion --> Retrieval[Hybrid Retrieval]
+Retrieval --> Reranker[Reranker]
+Reranker --> Generator[Answer Generator]
+Generator --> Citations[Citations]
+Generator --> Eval[Evaluation + Feedback]`}
+/>
+
+## Tradeoffs
+
+Hybrid retrieval is more complex than vector-only search, but it is often worth it when enterprise vocabulary, acronyms, and document structure matter.
+
+## Security
+
+Authorization should happen before retrieval and before generation. Filtering after generation is too late.
+
+## Future Improvements
+
+- Query rewriting
+- Domain-specific rankers
+- Feedback-driven evaluation sets
+- Document freshness scoring

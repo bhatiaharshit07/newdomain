@@ -1,0 +1,48 @@
+---
+title: Building Production LLM Apps
+slug: building-production-llm-apps
+description: A practical playbook for moving LLM applications from prototypes to production systems.
+published: 2026-07-21
+updated: 2026-07-21
+author: Harshit Bhatia
+category: Enterprise AI
+tags:
+  - LLMs
+  - AI Platform Engineering
+  - Evaluation
+  - Observability
+featured: true
+readingTime: 9
+difficulty: Intermediate
+series: Production LLM Playbooks
+seoTitle: Building Production LLM Apps
+seoDescription: A production playbook for LLM apps covering scope, evaluation, routing, observability, cost, and human approval.
+---
+
+## Planning
+
+Start with the job-to-be-done, not the model. Define the workflow, the user, the failure cost, and the approval path.
+
+## Evaluation
+
+Create evaluation examples before the first production release. They do not need to be perfect. They need to exist early.
+
+## Runtime Design
+
+- Model routing
+- Prompt versioning
+- Tool permissions
+- Trace logging
+- Cost controls
+- Rollback plan
+
+## Human Approval
+
+Human review is a feature, not a failure. Approval workflows make autonomy acceptable in enterprise environments.
+
+## Deployment Checklist
+
+<Callout title="Before launch">
+  Define success metrics, failure modes, escalation paths, and ownership before
+  expanding usage.
+</Callout>
