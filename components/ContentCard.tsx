@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { contentTypes, type ContentEntry } from "@/lib/content";
 
 type ContentCardProps = {
@@ -9,6 +10,17 @@ export function ContentCard({ entry }: ContentCardProps) {
   return (
     <article className="group flex min-h-[300px] flex-col justify-between rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] p-7 transition-colors hover:border-[color:var(--foreground)]">
       <div>
+        {entry.cover ? (
+          <div className="mb-6 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
+            <Image
+              alt=""
+              className="aspect-[16/9] w-full object-cover"
+              height={360}
+              src={entry.cover}
+              width={640}
+            />
+          </div>
+        ) : null}
         <div className="flex flex-wrap items-center gap-2 text-sm text-[color:var(--muted)]">
           <span>{contentTypes[entry.type].label}</span>
           <span aria-hidden="true">/</span>

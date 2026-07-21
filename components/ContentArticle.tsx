@@ -1,4 +1,5 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
 import { ContentCard } from "@/components/ContentCard";
 import { ContentProgressBar } from "@/components/ContentProgressBar";
 import { mdxComponents } from "@/components/MdxComponents";
@@ -63,6 +64,18 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
                 </>
               ) : null}
             </div>
+            {entry.cover ? (
+              <figure className="mt-10 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
+                <Image
+                  alt=""
+                  className="h-auto w-full object-cover"
+                  height={720}
+                  priority
+                  src={entry.cover}
+                  width={1280}
+                />
+              </figure>
+            ) : null}
             <div className="article-prose mt-12">
               <MDXRemote source={entry.body} components={mdxComponents} />
             </div>
