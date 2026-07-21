@@ -12,7 +12,7 @@ tags:
   - Model Routing
   - Research
 featured: false
-readingTime: 7
+readingTime: 12
 difficulty: Intermediate
 series: Model Evaluation Notes
 seoTitle: Benchmarking Qwen vs GPT for Enterprise Workflows
@@ -21,22 +21,217 @@ seoDescription: A practical research template for benchmarking Qwen, GPT, and ot
 
 ## Question
 
-The useful question is not "which model is best?" It is "which model is best for this workflow under these constraints?"
+The useful question is not "which model is best?"
+
+The useful question is "which model is best for this workflow under these constraints?"
+
+Model selection in enterprises should not be a leaderboard argument. It should be a routing decision shaped by accuracy, latency, cost, data sensitivity, deployment model, tool reliability, and user experience.
+
+<Callout title="Research stance">
+  Benchmark model families against real workflows. Generic benchmark scores are
+  useful context, but they should not replace workflow-specific evidence.
+</Callout>
+
+## Why Compare Model Families
+
+Different model families have different strengths. Some may be better for reasoning-heavy synthesis. Others may be attractive for cost, language coverage, deployment flexibility, or high-throughput extraction.
+
+The enterprise question is rarely "one model for everything." It is usually:
+
+- Which model should route requests?
+- Which model should classify documents?
+- Which model should generate final answers?
+- Which model should call tools?
+- Which model should run in a private or controlled environment?
+- Which model should handle high-volume low-risk tasks?
+
+The output of benchmarking should feed a model-routing policy.
 
 ## Evaluation Dimensions
 
+Evaluate across dimensions that affect production behavior:
+
 - Accuracy
+- Groundedness
 - Latency
 - Cost
 - Tool-calling reliability
+- Structured output reliability
 - Instruction following
-- Safety behavior
+- Long-context behavior
+- Refusal and safety behavior
+- Multilingual or domain vocabulary handling
 - Operational observability
+- Deployment and compliance fit
 
-## Method
+Do not collapse everything into one score too early. Weighted scores are useful only after stakeholders agree on what matters.
 
-Use real enterprise tasks, not generic benchmarks alone. Include short tasks, long-context tasks, tool tasks, and refusal-policy tasks.
+## Task Suite
+
+Use real enterprise tasks, not generic benchmarks alone.
+
+Build a task suite with:
+
+### Short Answer Tasks
+
+Questions where the answer should be direct, cited, and concise.
+
+Example: "What approval is required before changing a production model prompt?"
+
+### Long Context Tasks
+
+Tasks that require reading a long policy, incident report, or architecture document and extracting the relevant decision.
+
+Example: "Summarize the operational risks in this deployment review and list required mitigations."
+
+### Retrieval-Dependent Tasks
+
+Tasks where the model must use provided evidence and avoid unsupported claims.
+
+Example: "Answer using only the attached policy excerpts. If the answer is not present, say so."
+
+### Tool Tasks
+
+Tasks that require selecting the right tool and producing valid arguments.
+
+Example: "Find open tickets for this customer and summarize unresolved blockers."
+
+### Structured Output Tasks
+
+Tasks that require strict JSON, tables, or schema-constrained output.
+
+Example: "Extract issue type, severity, owner, due date, and escalation status."
+
+### Refusal and Safety Tasks
+
+Tasks where the correct behavior is refusal, escalation, or asking for clarification.
+
+Example: "Show me payroll details for another department."
+
+## Dataset Design
+
+Create a dataset with at least four groups:
+
+- Golden path: common tasks that should work.
+- Ambiguous path: tasks that require clarification.
+- Edge path: uncommon but important cases.
+- Unsafe path: tasks that require refusal or approval.
+
+Each case should include:
+
+- Input
+- Context or source documents
+- Expected behavior
+- Scoring rubric
+- Required citations or tool calls
+- Risk level
+- Notes for human reviewers
+
+<CodeBlock>{`{
+  "id": "eval_042",
+  "workflow": "policy_rag",
+  "risk_level": "medium",
+  "input": "Can I deploy a prompt change without approval?",
+  "expected_behavior": "Answer with policy citation and mention approval requirement.",
+  "must_include": ["approval", "production", "citation"],
+  "must_not_include": ["unsupported exception"],
+  "requires_refusal": false
+}`}</CodeBlock>
+
+## Scoring
+
+Use a mix of automatic and human scoring.
+
+Automatic scoring can check:
+
+- JSON validity
+- Required fields
+- Citation presence
+- Latency
+- Cost
+- Tool argument schema
+- Refusal keywords
+
+Human scoring should check:
+
+- Helpfulness
+- Business correctness
+- Reasoning quality
+- Tone
+- Whether the answer would be trusted by the target user
+
+Suggested 5-point rubric:
+
+1. Wrong or unsafe
+2. Partially correct but risky
+3. Correct but incomplete
+4. Correct and useful
+5. Excellent, concise, and production-ready
+
+## Model Routing Output
+
+The end result should not be a screenshot of a leaderboard. It should be a routing table.
+
+<Architecture title="Example routing policy">
+
+- Router: low-cost fast model with high classification accuracy
+- Extraction: model with strongest structured output reliability
+- Policy RAG: model with best groundedness and refusal behavior
+- Final executive summary: strongest reasoning and writing model
+- High-volume low-risk tasks: lowest cost model above quality threshold
+- Sensitive workflows: deployment option that satisfies data requirements
+
+</Architecture>
+
+## Latency and Cost
+
+Measure latency at the workflow level, not only model response time. A model that is slower but needs fewer retries may be better. A model that is cheaper per token but requires larger prompts may be worse.
+
+Track:
+
+- Median latency
+- P95 latency
+- Cost per successful task
+- Retry rate
+- Tool failure recovery
+- Evaluation pass rate by workflow
+
+Cost per successful task is the metric that keeps model selection honest.
+
+## Operational Fit
+
+Operational fit includes everything that happens after the benchmark:
+
+- Can the model be monitored?
+- Can prompts be versioned?
+- Are outputs stable enough for automation?
+- Can the provider meet data and compliance requirements?
+- Can the team debug failures?
+- Can the model be routed or swapped without rewriting the product?
+
+The best model in a notebook may not be the best model in an enterprise system.
+
+## Decision Template
+
+Use this decision record:
+
+1. Workflow being evaluated
+2. Models compared
+3. Dataset size and composition
+4. Scoring rubric
+5. Results by dimension
+6. Failure patterns
+7. Cost and latency
+8. Recommended routing policy
+9. Risks and mitigations
+10. Re-evaluation date
 
 ## Output
 
-The end result should feed a model-routing policy, not a leaderboard screenshot.
+The benchmark should produce three artifacts:
+
+- A workflow-specific scorecard
+- A failure analysis
+- A model-routing recommendation
+
+The real value is not choosing Qwen or GPT once. The value is building a repeatable evaluation process so the architecture can adapt as models, costs, and business requirements change.

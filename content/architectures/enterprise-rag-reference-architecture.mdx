@@ -12,7 +12,7 @@ tags:
   - LLMs
   - AI Security
 featured: true
-readingTime: 10
+readingTime: 15
 difficulty: Intermediate
 series: Enterprise AI Architecture
 seoTitle: Enterprise RAG Reference Architecture
@@ -21,40 +21,248 @@ seoDescription: Practical reference architecture for enterprise RAG with ingesti
 
 ## Problem
 
-Enterprise RAG fails when it treats retrieval as a vector database problem instead of a product, security, and evaluation problem.
+Enterprise RAG fails when teams treat it as a vector database implementation instead of a product, security, and evaluation system.
+
+The prototype usually works because the dataset is clean, the questions are known, and the user already understands the answer. Production is different. Users ask incomplete questions. Documents are stale. Permissions are complicated. Acronyms collide across departments. The system must explain why it answered a certain way and why it refused another answer.
+
+<Callout title="Core idea">
+  Retrieval quality is not only about embeddings. It is the combined behavior of
+  ingestion, permissions, ranking, citations, feedback, and governance.
+</Callout>
 
 ## Constraints
 
-- Documents have access rules.
-- Knowledge becomes stale.
-- Users ask incomplete questions.
-- Results need citations.
-- Teams need measurable quality.
+Enterprise RAG has constraints that generic demos avoid:
 
-## Solution
+- Source systems include PDFs, wikis, tickets, emails, CRM notes, product docs, and policy documents.
+- Documents have access rules that must survive chunking, indexing, retrieval, and generation.
+- Knowledge changes at different speeds. A policy memo may expire quarterly, while an incident note may matter for only a week.
+- Users rarely phrase questions in the same language as the source documents.
+- Answers need citations, confidence signals, and escalation paths.
+- Teams need measurable quality, not only impressive examples.
+
+The architecture should be designed around these constraints from day one. Adding them after launch usually means rebuilding the ingestion and retrieval layers.
+
+## Reference Architecture
 
 <Mermaid
   chart={`graph LR
-Sources[Enterprise Sources] --> Ingestion[Ingestion Pipeline]
-Ingestion --> Permissions[Permission Index]
-Ingestion --> Retrieval[Hybrid Retrieval]
-Retrieval --> Reranker[Reranker]
-Reranker --> Generator[Answer Generator]
-Generator --> Citations[Citations]
-Generator --> Eval[Evaluation + Feedback]`}
+Sources[Enterprise Sources] --> Connectors[Source Connectors]
+Connectors --> Ingestion[Ingestion Pipeline]
+Ingestion --> Classifier[Document Classifier]
+Classifier --> Chunking[Chunking + Metadata]
+Chunking --> PermissionIndex[Permission Index]
+Chunking --> Lexical[Lexical Index]
+Chunking --> Vector[Vector Index]
+Lexical --> Retriever[Hybrid Retriever]
+Vector --> Retriever
+PermissionIndex --> Retriever
+Retriever --> Reranker[Reranker]
+Reranker --> Context[Context Builder]
+Context --> Generator[Answer Generator]
+Generator --> Citations[Citations + Evidence]
+Generator --> Eval[Evaluation + Feedback]
+Eval --> Quality[Quality Dashboard]`}
 />
 
-## Tradeoffs
+## Components
 
-Hybrid retrieval is more complex than vector-only search, but it is often worth it when enterprise vocabulary, acronyms, and document structure matter.
+### Source Connectors
+
+Connectors should do more than fetch documents. They should preserve source identity, ownership, timestamps, permissions, version history, and deletion signals. A connector that only extracts text will create problems later because the system cannot answer basic governance questions.
+
+Useful connector metadata includes:
+
+- `source_system`
+- `source_url`
+- `document_owner`
+- `created_at`
+- `updated_at`
+- `visibility`
+- `access_groups`
+- `retention_policy`
+- `document_version`
+
+### Ingestion Pipeline
+
+The ingestion pipeline should be idempotent. The same document should not create duplicate chunks on every run. Each source object needs a stable external ID and a content hash so the pipeline can detect whether text, metadata, or permissions changed.
+
+<Architecture title="Ingestion contract">
+
+Every ingested object should answer five questions:
+
+1. What is the source of truth?
+2. Who is allowed to see it?
+3. When was it last updated?
+4. What business domain does it belong to?
+5. Which chunks came from which exact source span?
+
+</Architecture>
+
+### Chunking and Metadata
+
+Chunking is a product decision. A contract, architecture spec, or incident review should not be split the same way as a FAQ. Chunk size should depend on document type, section structure, and citation needs.
+
+Poor chunking creates two failures:
+
+- Retrieval returns the right document but the wrong passage.
+- The model receives context without enough surrounding explanation.
+
+Start with simple section-aware chunking. Add semantic chunking only when evaluation data shows a real need.
+
+### Permission Index
+
+Authorization should happen before retrieval and before generation. Filtering after generation is too late because restricted content may already have influenced the answer.
+
+The retrieval service should accept the user's identity and compute the allowed document and chunk set before any ranking step. This can be implemented through access group filters, document-level ACLs, or a policy service, depending on the enterprise environment.
+
+<Warning>
+  Never rely on prompt instructions to enforce document permissions. Access
+  control must be enforced by the retrieval and policy layers.
+</Warning>
+
+### Hybrid Retrieval
+
+Vector-only retrieval struggles with product codes, acronyms, part numbers, policy IDs, customer names, and exact phrases. Lexical-only search struggles when users ask conceptual questions. Most enterprise systems need both.
+
+A practical retrieval strategy is:
+
+1. Rewrite the query for clarity without changing intent.
+2. Run lexical search for exact terms and identifiers.
+3. Run vector search for semantic matches.
+4. Merge and deduplicate candidates.
+5. Apply permission filters.
+6. Rerank the top candidates.
+7. Build a bounded context package with citations.
+
+### Reranker
+
+The reranker is where retrieval becomes judgment. It should prefer passages that directly answer the question, contain current information, and come from trusted sources. It should penalize stale, low-quality, duplicate, or weakly related chunks.
+
+Reranking also gives the system a place to encode product rules. For example, policy documents may outrank Slack discussions for compliance questions, while recent incident notes may outrank general docs for operational troubleshooting.
+
+### Context Builder
+
+The context builder decides what the model sees. It should not simply pass the top 10 chunks. It should assemble a compact evidence packet with source titles, passage text, timestamps, and citation IDs.
+
+Good context packets make the generator's job boring:
+
+- The user question is restated.
+- The answer requirements are explicit.
+- Evidence is grouped by source.
+- Conflicting sources are labeled.
+- Unknowns are preserved instead of hidden.
+
+## APIs
+
+The RAG service should expose contracts that are easy to test:
+
+<CodeBlock>{`POST /rag/query
+{
+  "user_id": "u_123",
+  "workspace_id": "assert-ai",
+  "question": "What approval is needed for model changes?",
+  "filters": {
+    "domain": "ai-governance",
+    "freshness_days": 365
+  }
+}
+
+Response:
+{
+"answer": "...",
+"citations": [
+{
+"source_title": "Model Governance Policy",
+"source_url": "https://...",
+"chunk_id": "chunk_456"
+}
+],
+"confidence": "medium",
+"escalation": {
+"required": true,
+"reason": "Policy conflict detected"
+}
+}`}</CodeBlock>
+
+The API should return evidence and escalation metadata, not only final text. That makes the system easier to evaluate, debug, and govern.
+
+## Data Flow
+
+The runtime path should be observable:
+
+1. User asks a question.
+2. Policy service resolves identity and access groups.
+3. Query service rewrites or decomposes the question.
+4. Retrieval fetches lexical and semantic candidates.
+5. Permission filters remove disallowed chunks.
+6. Reranker selects evidence.
+7. Context builder assembles the evidence packet.
+8. Generator creates an answer with citations.
+9. Evaluator checks groundedness, refusal conditions, and answer quality.
+10. Feedback is stored for future evaluation sets.
+
+Each step should emit trace data. Without traces, every failure becomes a debate about whether retrieval, ranking, prompting, or source quality caused the issue.
+
+## Evaluation
+
+Evaluation should begin before launch. Start with 50 to 100 realistic questions across the most important user journeys. Include easy questions, ambiguous questions, permission-sensitive questions, stale-information questions, and questions with no answer.
+
+Track these metrics:
+
+- Retrieval recall: did the right source appear?
+- Reranking precision: did the best evidence rise to the top?
+- Groundedness: is the answer supported by citations?
+- Permission correctness: was restricted content excluded?
+- Refusal quality: did the system refuse when evidence was missing?
+- Latency and cost: can the workflow sustain normal traffic?
+- User success: did the answer help the user complete the job?
+
+## Scaling
+
+Scale usually breaks RAG in three places: ingestion freshness, retrieval latency, and evaluation coverage.
+
+For ingestion, separate full backfills from incremental syncs. For retrieval, cache safe query expansions and source metadata, not user-specific answers. For evaluation, build datasets around workflows rather than random questions.
+
+If the system serves multiple business units, consider domain-specific indexes with a shared retrieval interface. This gives each domain room for its own chunking, freshness, and ranking rules without fragmenting the user experience.
 
 ## Security
 
-Authorization should happen before retrieval and before generation. Filtering after generation is too late.
+Security requirements should be visible in the architecture:
+
+- Identity-aware retrieval
+- Source-level and chunk-level permissions
+- Audit logs for queries and retrieved sources
+- PII and secret detection during ingestion
+- Read/write separation for connected tools
+- Red-team tests for prompt injection and data exfiltration
+- Admin workflows for deletion and retention
+
+Prompt injection is especially important. Retrieved content may contain instructions that conflict with system policy. The generator should treat documents as evidence, not as instructions.
+
+## Cost
+
+RAG cost comes from ingestion, embedding, reranking, generation, storage, and evaluation. The most expensive mistake is sending too much context to a strong model because retrieval quality is weak.
+
+Control cost with:
+
+- Smaller models for query rewriting and classification
+- Cached embeddings for unchanged chunks
+- Reranking only after candidate narrowing
+- Context budgets by workflow
+- Model routing based on answer complexity
+- Evaluation sampling instead of evaluating every answer with the largest model
 
 ## Future Improvements
 
-- Query rewriting
-- Domain-specific rankers
-- Feedback-driven evaluation sets
-- Document freshness scoring
+Once the base system is stable, the next improvements should be driven by traces and evaluation data:
+
+- Domain-specific query rewriting
+- Freshness-aware ranking
+- Source trust scoring
+- Conflict detection across documents
+- User feedback loops tied to evaluation cases
+- Multimodal retrieval for diagrams, tables, and images
+- Agentic workflows that can ask follow-up questions before answering
+
+The goal is not to build the most complex RAG platform. The goal is to build a system where users trust the answer, security teams trust the boundary, and product teams can improve quality without guessing.

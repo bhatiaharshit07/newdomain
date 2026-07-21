@@ -12,7 +12,7 @@ tags:
   - AI Platform Engineering
   - Evaluation
 featured: true
-readingTime: 8
+readingTime: 13
 difficulty: Intermediate
 series: Enterprise Agent Series
 seoTitle: Why Multi-Agent Systems Fail in Enterprises
@@ -21,20 +21,138 @@ seoDescription: Enterprise multi-agent systems fail when ownership, memory, eval
 
 ## Problem
 
-Most multi-agent demos look impressive because the workflow is narrow, the input is controlled, and failure has no organizational cost. Enterprise systems operate in the opposite environment: ambiguous requests, changing policy, legacy data, security boundaries, and teams that need accountability.
+Most multi-agent demos look impressive because the workflow is narrow, the input is controlled, and failure has no organizational cost.
+
+Enterprise systems operate in the opposite environment: ambiguous requests, changing policy, legacy data, security boundaries, noisy tools, and teams that need accountability. The demo can tolerate mystery. Production cannot.
 
 <Callout title="Core idea">
   The hard part is not creating more agents. The hard part is designing
   responsibility, memory, evaluation, and control around them.
 </Callout>
 
-## Failure Patterns
+## Failure Pattern 1: Agents Have Overlapping Ownership
 
-- Agents are given overlapping responsibilities.
-- Tool access is granted before policy is modeled.
-- Memory is treated as a chat transcript instead of a governed product surface.
-- Evaluation begins after deployment.
-- Human approval is added as a UI patch instead of a workflow primitive.
+The first failure is unclear responsibility. Teams create a research agent, a planning agent, an execution agent, a data agent, and a review agent. On paper this looks modular. In practice, every agent can interpret the goal, reshape the plan, and make quality decisions.
+
+When ownership overlaps, failures become impossible to debug:
+
+- Did the router misunderstand the request?
+- Did the planner choose the wrong sequence?
+- Did a specialist agent use the wrong evidence?
+- Did the reviewer miss the issue?
+- Did the tool return bad data?
+
+If every agent can make the same kind of judgment, no agent is accountable.
+
+### Better Design
+
+Define each agent by contract:
+
+- Inputs it accepts
+- Tools it can call
+- Output format it must produce
+- Decisions it owns
+- Decisions it must escalate
+- Evaluation suite that measures it
+
+The system should make responsibility boringly clear.
+
+## Failure Pattern 2: Tool Access Comes Before Policy
+
+Giving an agent a tool is easy. Governing that tool is the real work.
+
+In enterprise environments, tools represent power: reading sensitive data, sending emails, creating tickets, changing records, triggering workflows, or making recommendations that affect customers. If tools are wired before policy is modeled, the agent becomes a bypass around existing controls.
+
+<Warning>
+  If a human needs permission to perform an action, an agent needs permission
+  too. The agent should not become a shortcut around governance.
+</Warning>
+
+### Better Design
+
+Put a tool gateway between agents and systems. The gateway should validate arguments, enforce permissions, log calls, separate read and write operations, and require approvals for side effects.
+
+This turns tool access from "the model can call anything" into "the workflow can request a governed action."
+
+## Failure Pattern 3: Memory Becomes a Junk Drawer
+
+Memory is often added because it feels like intelligence. The agent remembers preferences, previous conversations, customer details, workflow state, and internal decisions.
+
+The problem is that memory without governance becomes a junk drawer. It accumulates stale, sensitive, contradictory, or irrelevant information. The system starts behaving differently for reasons users cannot inspect.
+
+Enterprise memory needs product rules:
+
+- What is worth remembering?
+- Who owns the memory?
+- Can the user inspect it?
+- Can the user edit or delete it?
+- When does it expire?
+- Which workflows can read it?
+- What happens when memory conflicts with source systems?
+
+### Better Design
+
+Separate memory by purpose:
+
+- Session memory for current task state
+- User memory for preferences
+- Workflow memory for recurring process state
+- Organizational memory for approved shared knowledge
+
+Each memory layer should have a retention policy, access policy, and evaluation strategy.
+
+## Failure Pattern 4: Evaluation Starts After Launch
+
+Many teams evaluate agents informally: a few prompts, a few demos, a few internal users. That works until the system meets real ambiguity.
+
+The failure is not only bad final answers. Multi-agent systems can fail at every step:
+
+- Wrong route
+- Weak plan
+- Incorrect tool choice
+- Bad tool arguments
+- Missing approval
+- Unsupported claim
+- Poor handoff between agents
+- Stale memory
+- Confident answer with weak evidence
+
+If evaluation only checks final answers, the system can look acceptable while internal behavior is unsafe.
+
+### Better Design
+
+Create workflow-level evaluation:
+
+1. Routing tests
+2. Planning tests
+3. Tool selection tests
+4. Tool argument tests
+5. Policy and approval tests
+6. Memory tests
+7. Final output tests
+8. Recovery tests for tool failure
+
+Evaluation should run before launch, during release, and after incidents.
+
+## Failure Pattern 5: Human Approval Is Added Too Late
+
+Human approval is often treated as a blocker to autonomy. It is actually what makes autonomy acceptable.
+
+When approval is added late, it becomes a button on top of an opaque workflow. The reviewer sees a final draft but not the reasoning, evidence, tool calls, or risk classification. That is not meaningful approval. It is a ritual.
+
+### Better Design
+
+Approval should be a workflow primitive. A good approval request shows:
+
+- The action the agent wants to take
+- The evidence used
+- The tool call that will happen
+- The expected side effect
+- The risk level
+- The rollback path
+- The reason approval is required
+
+This lets humans review the right thing at the right level of detail.
 
 ## Architecture Response
 
@@ -45,15 +163,70 @@ Most multi-agent demos look impressive because the workflow is narrow, the input
 3. Bind every tool to policy, logging, and rollback behavior.
 4. Evaluate intermediate outputs, not only final answers.
 5. Escalate decisions that affect money, access, safety, or customers.
+6. Store traces so failures can be replayed and improved.
 
 </Architecture>
 
+<Mermaid
+  chart={`graph LR
+Goal[User Goal] --> Route[Route]
+Route --> Plan[Plan]
+Plan --> Policy[Policy Check]
+Policy --> Execute[Execute Tool]
+Execute --> Evaluate[Evaluate Step]
+Evaluate --> Approve[Approve or Escalate]
+Approve --> Respond[Respond]
+Respond --> Trace[Trace + Learn]`}
+/>
+
 ## Tradeoffs
 
-More control adds latency and platform complexity. Less control creates adoption risk. The right answer is usually not "fully autonomous" or "fully manual"; it is scoped autonomy with explicit escalation.
+More control adds latency and platform complexity. Less control creates adoption risk.
+
+The right answer is usually not "fully autonomous" or "fully manual." It is scoped autonomy with explicit escalation. The system should be autonomous where the risk is low, evidence is strong, and rollback is easy. It should slow down where decisions affect money, access, customers, safety, or compliance.
+
+This is not anti-agent. It is pro-adoption.
+
+## A Practical Maturity Model
+
+### Stage 1: Assisted Workflow
+
+The agent drafts, summarizes, searches, and recommends. Humans execute side effects. This is the safest place to start.
+
+### Stage 2: Governed Tool Use
+
+The agent can call read-only tools and propose write actions. Approval is required for side effects.
+
+### Stage 3: Scoped Autonomy
+
+The agent can complete low-risk workflows end to end under policy, budget, and confidence thresholds.
+
+### Stage 4: Operational Autonomy
+
+The system handles recurring workflows with monitoring, incident review, continuous evaluation, and clear ownership.
+
+Most enterprises should not jump to Stage 4. They should earn it.
+
+## What Good Looks Like
+
+A production multi-agent system should be able to answer these questions:
+
+- Why was this workflow selected?
+- Which agent owned each decision?
+- Which tools were called?
+- Which policies were applied?
+- Which evidence supported the output?
+- Where did memory influence the result?
+- Why was approval required or skipped?
+- How would we replay this run after an incident?
+- Which evaluation case should this failure become?
+
+If the system cannot answer those questions, it is not ready for high-trust enterprise work.
 
 ## Further Reading
 
-- Enterprise Agentic AI Systems
-- AI Gateway and Model Routing
-- AI Observability
+- [Multi-Agent Orchestrator Reference Architecture](/architecture/multi-agent-orchestrator)
+- [Enterprise RAG Reference Architecture](/architecture/enterprise-rag-reference-architecture)
+- [Building Production LLM Apps](/playbooks/building-production-llm-apps)
+
+Multi-agent systems fail when they are designed as collections of prompts. They succeed when they are designed as accountable operating systems for work.

@@ -12,7 +12,7 @@ tags:
   - Architecture
   - AI Security
 featured: true
-readingTime: 12
+readingTime: 16
 difficulty: Advanced
 series: Enterprise Agent Series
 seoTitle: Multi-Agent Orchestrator Reference Architecture
@@ -23,64 +23,292 @@ seoDescription: Reference architecture for enterprise multi-agent systems with r
 
 Enterprise agent systems need predictable orchestration. A single agent with broad tool access becomes difficult to test, govern, and debug as workflows grow.
 
+The common failure pattern is simple: a team starts with one general-purpose agent because it is fast. The agent gets more prompts, more tools, more memory, and more responsibilities. Soon nobody can explain why it chose a tool, why it skipped an approval, or why it produced different behavior for similar requests.
+
+<Callout title="Core idea">
+  Multi-agent architecture is not about making a system look intelligent. It is
+  about separating responsibility so the system can be tested, observed, and
+  trusted.
+</Callout>
+
 ## Constraints
 
-- Users ask broad questions.
-- Data lives across systems.
-- Tools have different permissions and failure modes.
-- Teams need logs, approvals, and ownership.
-- Security teams need policy boundaries before deployment.
+Production agent systems operate under constraints that should shape the architecture:
 
-## Solution
+- Users ask broad goals, not clean function calls.
+- Data lives across CRMs, ERPs, ticketing tools, warehouses, files, and internal APIs.
+- Tools have different permissions, latency, side effects, and failure modes.
+- Teams need logs, approvals, ownership, and incident review.
+- Security teams need enforceable policy boundaries before deployment.
+- Business users need predictable escalation, not hidden autonomy.
+
+The orchestrator should make these constraints explicit. If the design assumes perfect prompts, perfect tools, or perfect model judgment, it will not survive production.
+
+## Reference Architecture
 
 <Architecture title="Orchestration layers">
 
 - Intent Router
-- Planner
+- Workflow Planner
 - Specialist Agents
 - Tool Gateway
 - Memory Service
+- Policy Engine
 - Human Approval Queue
-- Evaluation and Observability
+- Evaluation and Observability Layer
 
 </Architecture>
 
 <Mermaid
   chart={`graph LR
 User[User Goal] --> Router[Intent Router]
-Router --> Planner[Planner]
-Planner --> Agents[Specialist Agents]
+Router --> Planner[Workflow Planner]
+Planner --> Policy[Policy Engine]
+Policy --> Agents[Specialist Agents]
 Agents --> Gateway[Tool Gateway]
 Gateway --> Systems[Enterprise Systems]
 Agents --> Memory[Memory Service]
-Agents --> Approval[Human Approval]
-Agents --> Eval[Evaluation Loop]`}
+Agents --> Approval[Human Approval Queue]
+Agents --> Eval[Evaluation + Observability]
+Eval --> Ops[Operations Dashboard]`}
 />
 
-## Components
+## Component Responsibilities
 
-The orchestrator should not own every detail. It should coordinate bounded components, each with a clear contract and failure mode.
+### Intent Router
 
-## APIs
+The router maps a user goal to a workflow. It should not do deep reasoning or execute tools. Its job is classification, ambiguity detection, and routing.
 
-The most important API is not the LLM call. It is the interface between the planner, tools, memory, and approval system.
+Useful router outputs:
 
-## Data Flow
+- Workflow type
+- Required data domains
+- Risk level
+- Confidence
+- Need for clarification
+- Candidate specialist roles
 
-Every agent action should emit a trace event. The trace should include input, selected tool, policy result, output, confidence, and escalation decision.
+If the router is unsure, it should ask a clarifying question or route to a safer workflow. Silent misrouting is one of the most expensive agent failures because the rest of the system may execute correctly against the wrong goal.
 
-## Scaling
+### Workflow Planner
 
-Start with fewer roles and stronger evaluation. Add more agents only when responsibility becomes clearer, not when prompts become longer.
+The planner decomposes the work into steps. In an enterprise system, plans should be structured and inspectable. Avoid free-form plans that cannot be validated.
 
-## Security
+<CodeBlock>{`{
+  "workflow": "customer_escalation_summary",
+  "risk_level": "medium",
+  "steps": [
+    {
+      "id": "fetch_context",
+      "agent": "customer_context_agent",
+      "tools": ["crm.read", "tickets.search"],
+      "requires_approval": false
+    },
+    {
+      "id": "draft_response",
+      "agent": "communication_agent",
+      "tools": [],
+      "requires_approval": false
+    },
+    {
+      "id": "send_response",
+      "agent": "communication_agent",
+      "tools": ["email.send"],
+      "requires_approval": true
+    }
+  ]
+}`}</CodeBlock>
 
-Never let an agent bypass the same controls a human operator would face.
+Structured plans make it possible to apply policy before execution and to replay failures after execution.
+
+### Specialist Agents
+
+Specialist agents should be bounded by responsibility, not by personality. Each agent needs a contract:
+
+- What it is allowed to do
+- Which tools it can call
+- Which memory it can read or write
+- What output format it must produce
+- When it must escalate
+- How its output is evaluated
+
+Examples:
+
+- Research agent: gather evidence and cite sources.
+- Operations agent: inspect events, logs, and operational state.
+- Communication agent: produce user-facing drafts.
+- Policy agent: classify risk and approval requirements.
+- Data agent: generate read-only queries through a governed interface.
+
+### Tool Gateway
+
+The tool gateway is the control point between agents and enterprise systems. Agents should never receive raw credentials or direct network access.
+
+The gateway should enforce:
+
+- Tool-level permissions
+- Argument validation
+- Rate limits
+- Read/write separation
+- Idempotency keys for actions
+- Audit logging
+- Approval checks
+- Rollback instructions when available
 
 <Warning>
   Never let an LLM directly access production databases without policy,
   read/write separation, logging, and approval boundaries.
 </Warning>
+
+### Memory Service
+
+Memory is not a transcript dump. It is a governed product surface.
+
+Separate memory into layers:
+
+- Session memory: temporary context for the current task.
+- User preference memory: stable preferences the user can inspect and edit.
+- Workflow memory: reusable state for recurring business processes.
+- Organizational memory: approved knowledge available to many users.
+
+Every memory write should have a purpose, owner, retention rule, and deletion path. If the system cannot explain why a memory exists, it should probably not store it.
+
+### Human Approval Queue
+
+Human approval should be part of the workflow model, not a UI patch. The approval queue should show the user:
+
+- What the agent wants to do
+- Which evidence it used
+- Which tools will be called
+- What side effects may happen
+- What happens if the action is rejected
+
+Approval is especially important for money movement, customer communication, access changes, data deletion, policy exceptions, and operational changes.
+
+## APIs
+
+The orchestrator API should produce traceable work, not just final answers.
+
+<CodeBlock>{`POST /agents/run
+{
+  "user_id": "u_123",
+  "goal": "Summarize this escalation and draft a customer update",
+  "context": {
+    "customer_id": "cust_456",
+    "ticket_id": "ticket_789"
+  }
+}
+
+Response:
+{
+"run_id": "run_001",
+"status": "awaiting_approval",
+"plan": [...],
+"draft_output": "...",
+"approval_request": {
+"action": "send_customer_email",
+"risk_level": "medium",
+"evidence": ["ticket_789", "incident_123"]
+}
+}`}</CodeBlock>
+
+The API should expose run IDs, plan state, approvals, trace links, and final output. Those are the handles teams need for debugging and operations.
+
+## Data Flow
+
+Every agent action should emit a trace event. The trace should include:
+
+- User goal
+- Workflow and step ID
+- Agent role
+- Model and prompt version
+- Tool selected
+- Tool arguments after validation
+- Policy result
+- Tool output summary
+- Confidence
+- Escalation decision
+- Final output
+
+This trace is not only for engineers. Product, support, compliance, and customer-facing teams will all need to understand why the system behaved a certain way.
+
+## Evaluation
+
+Multi-agent evaluation must test the workflow, not only the final answer.
+
+Evaluate:
+
+- Routing accuracy
+- Plan quality
+- Tool selection
+- Tool argument correctness
+- Policy enforcement
+- Memory read/write behavior
+- Human approval triggers
+- Final output quality
+- Recovery from tool failure
+
+For high-risk workflows, create replay tests from real incidents and red-team scenarios. The question is not "can the agent do the happy path?" The question is "does the system fail in a controlled way?"
+
+## Scaling
+
+Start with fewer roles and stronger evaluation. Add more agents only when responsibility becomes clearer, not when prompts become longer.
+
+A good scaling path:
+
+1. One workflow with explicit tools and approvals.
+2. A router for a small set of workflows.
+3. Specialist roles where responsibility is naturally separable.
+4. Shared tool gateway and memory service.
+5. Workflow-level evaluation suites.
+6. Operations dashboards and incident review.
+
+Avoid creating agents for every department too early. That usually creates duplicated prompts, inconsistent policy, and unclear ownership.
+
+## Security
+
+Security must be designed into the orchestrator:
+
+- Least-privilege tool access
+- User-scoped identity propagation
+- Policy checks before tool execution
+- Approval for side effects
+- Secrets isolation
+- Prompt injection detection
+- Audit logs for every action
+- Environment separation between test and production
+
+Agents should face the same controls a human operator would face. If a human needs approval to send a refund, change access, or update a production record, the agent should need approval too.
+
+## Cost
+
+The cost of a multi-agent system can grow quickly because every step may call a model, tool, evaluator, or reranker.
+
+Control cost with:
+
+- Small models for routing and classification
+- Stronger models only for complex reasoning
+- Tool output summarization before downstream steps
+- Workflow budgets
+- Early exits when evidence is insufficient
+- Caching safe intermediate outputs
+- Evaluation sampling after launch
+
+Cost should be visible per workflow. If the team cannot connect cost to user value, the system will be hard to scale.
+
+## Operational Dashboard
+
+The operations dashboard should answer:
+
+- Which workflows are running?
+- Where are they failing?
+- Which tools are slow or unreliable?
+- Which approvals are stuck?
+- Which model or prompt versions changed behavior?
+- Which users are seeing poor outcomes?
+- Which failure modes are increasing?
+
+This is how agent systems become manageable. Without operations visibility, agents become invisible infrastructure with unpredictable behavior.
 
 ## Future Improvements
 
@@ -88,3 +316,8 @@ Never let an agent bypass the same controls a human operator would face.
 - Agent-specific evaluation suites
 - Red-team scenarios for tool abuse
 - Replayable traces for incident review
+- Policy simulation before workflow launch
+- Memory review and deletion tools
+- Offline workflow testing against historical cases
+
+The orchestrator should not make autonomy magical. It should make autonomy accountable.

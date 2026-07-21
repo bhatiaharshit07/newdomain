@@ -12,7 +12,7 @@ tags:
   - Event Analytics
   - Architecture
 featured: false
-readingTime: 6
+readingTime: 11
 difficulty: Intermediate
 series: Product Architecture Notes
 seoTitle: Alpha Analytics Architecture
@@ -21,15 +21,239 @@ seoDescription: Architecture notes for Alpha, an enterprise analytics platform f
 
 ## Product Context
 
-Operational teams need signals they can trust. A computer vision platform becomes valuable when detections become reliable business events.
+Operational teams need signals they can trust.
+
+A computer vision platform becomes valuable when detections become reliable business events. The model output is only the beginning. The product value appears when visual state is converted into operational context, metrics, alerts, workflows, and decisions.
+
+For Alpha, the architecture goal is to turn high-volume visual and operational events into decision intelligence for teams that manage real-world environments.
+
+<Callout title="Product principle">
+  Computer vision is not the product. The product is the operational decision
+  that becomes faster, safer, or more reliable because visual intelligence is
+  present.
+</Callout>
+
+## User Problems
+
+The target users are not asking for detections. They are asking for operational answers:
+
+- What is happening right now?
+- Which exceptions need attention?
+- Which site, line, dock, aisle, or zone is drifting from normal?
+- Which events are noise?
+- Which events require escalation?
+- Which patterns should change planning or staffing?
+- Which metrics can be trusted in review meetings?
+
+This means the platform must connect computer vision, event processing, analytics, and workflow design.
 
 ## Architecture Notes
 
-- Edge inference captures visual state.
-- Event pipelines normalize detections.
-- Analytics layers convert events into operational signals.
-- Dashboards support repeated decisions.
+<Mermaid
+  chart={`graph LR
+Cameras[Camera + Edge Sources] --> Edge[Edge Inference]
+Edge --> Events[Event Normalization]
+Events --> Rules[Rules + Context]
+Rules --> Stream[Event Stream]
+Stream --> Store[Event Store]
+Store --> Analytics[Analytics Layer]
+Analytics --> Alerts[Alerts + Workflows]
+Analytics --> Dashboards[Decision Dashboards]
+Dashboards --> Feedback[Operator Feedback]
+Feedback --> Quality[Model + Rule Quality Loop]`}
+/>
+
+The architecture separates detection from decisioning. This is important because the same detection can mean different things in different operational contexts.
+
+Example: a person standing in a zone may be normal during loading, suspicious after hours, or irrelevant during maintenance. The platform needs context before it can decide what matters.
+
+## Edge Inference
+
+Edge inference captures visual state close to the source. This reduces latency, protects bandwidth, and allows the system to operate even when cloud connectivity is imperfect.
+
+Edge responsibilities:
+
+- Run model inference
+- Apply basic filtering
+- Generate event candidates
+- Buffer during connectivity issues
+- Report device and model health
+- Send normalized event payloads upstream
+
+The edge should not own complex business logic. Business rules change more often than deployment environments, and they need central governance.
+
+## Event Normalization
+
+Raw detections are not enough. The platform needs a normalized event model.
+
+<CodeBlock>{`{
+  "event_id": "evt_123",
+  "site_id": "site_mumbai_01",
+  "zone_id": "dock_04",
+  "event_type": "vehicle_waiting",
+  "confidence": 0.91,
+  "started_at": "2026-07-21T09:22:00Z",
+  "ended_at": "2026-07-21T09:31:00Z",
+  "source": {
+    "camera_id": "cam_18",
+    "model_version": "vehicle-v7"
+  },
+  "context": {
+    "shift": "morning",
+    "workflow": "dispatch",
+    "expected_state": "clear"
+  }
+}`}</CodeBlock>
+
+Normalized events make analytics, alerts, and workflows consistent across sites.
+
+## Context Layer
+
+The context layer enriches visual events with operational meaning.
+
+Context can include:
+
+- Site and zone metadata
+- Shift schedules
+- Business calendars
+- Expected process state
+- Asset metadata
+- Customer or shipment context
+- SLA rules
+- Historical baselines
+
+Without context, the system produces detections. With context, it produces signals.
+
+## Analytics Layer
+
+The analytics layer converts events into metrics and patterns.
+
+Examples:
+
+- Dwell time
+- Queue length
+- Zone occupancy
+- Throughput
+- Exception rate
+- SLA breach risk
+- Repeat incident patterns
+- Site comparison
+- Shift comparison
+
+The analytics model should separate raw events from derived metrics. That makes it possible to recalculate metrics when business definitions change.
+
+## Alerting and Workflows
+
+Alerts should be designed carefully. More alerts do not create more value. They often create fatigue.
+
+Good alert design includes:
+
+- Severity
+- Confidence
+- Business impact
+- Suppression windows
+- Escalation rules
+- Ownership
+- Resolution state
+- Feedback capture
+
+The platform should distinguish between "interesting event" and "action required." That distinction is where operational trust is built.
+
+## Dashboards
+
+Dashboards should support repeated decisions, not just visual reporting.
+
+A strong dashboard answers:
+
+- What changed?
+- Why did it change?
+- What needs attention?
+- Who owns the next action?
+- Is this a one-time event or a pattern?
+- How confident is the signal?
+
+Dashboards should also expose data quality. If a camera is offline, a model version changed, or confidence dropped, users need to know before they trust the metric.
+
+## Feedback Loop
+
+Operator feedback is a product feature. It improves rules, model quality, and alert relevance.
+
+Feedback types:
+
+- True positive
+- False positive
+- False negative
+- Wrong severity
+- Wrong zone
+- Duplicate event
+- Not actionable
+- Action taken
+
+This feedback should flow into model evaluation, rule tuning, and product prioritization.
 
 ## Tradeoffs
 
 Real-time systems need careful balance between accuracy, latency, and noise reduction.
+
+### Accuracy vs Latency
+
+Some workflows need immediate alerts. Others can tolerate delayed aggregation for higher confidence. The platform should support both.
+
+### Edge vs Cloud
+
+Edge inference reduces latency and bandwidth, but cloud aggregation simplifies analytics and cross-site learning. The right architecture usually uses both.
+
+### Generic vs Domain-Specific
+
+Generic event models improve platform reuse. Domain-specific rules create customer value. The architecture should keep the core event model generic while allowing domain-specific interpretation.
+
+## Security and Privacy
+
+Computer vision platforms must handle privacy explicitly:
+
+- Minimize raw video movement.
+- Prefer event metadata where possible.
+- Control access to images and clips.
+- Log who viewed sensitive evidence.
+- Use retention policies.
+- Separate operational analytics from personally identifiable data.
+- Review model behavior for sensitive environments.
+
+Trust is not only model accuracy. It is also privacy, governance, and explainability.
+
+## Operating Metrics
+
+Track platform health and business value separately.
+
+Platform health:
+
+- Camera uptime
+- Edge device health
+- Model version distribution
+- Inference latency
+- Event pipeline lag
+- Alert delivery latency
+- Data completeness
+
+Business value:
+
+- Exception resolution time
+- SLA improvement
+- Manual review reduction
+- Throughput improvement
+- Operational loss avoided
+- Repeat incident reduction
+
+Both matter. A technically healthy system that does not change decisions is not enough.
+
+## Future Improvements
+
+- Natural-language investigation over event history
+- Agentic workflows for exception triage
+- Forecasting based on visual event patterns
+- Cross-site benchmarking
+- Automated root-cause suggestions
+- Human approval for operational recommendations
+- Model quality dashboards by site and condition
+
+Alpha should not be only an analytics product. It should become an operational intelligence layer that helps teams see, decide, and act with confidence.

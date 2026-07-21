@@ -12,7 +12,7 @@ tags:
   - Evaluation
   - Observability
 featured: true
-readingTime: 9
+readingTime: 14
 difficulty: Intermediate
 series: Production LLM Playbooks
 seoTitle: Building Production LLM Apps
@@ -21,28 +21,244 @@ seoDescription: A production playbook for LLM apps covering scope, evaluation, r
 
 ## Planning
 
-Start with the job-to-be-done, not the model. Define the workflow, the user, the failure cost, and the approval path.
+Start with the job-to-be-done, not the model.
+
+The first production question is not "which LLM should we use?" It is "which workflow deserves model intelligence, and what happens when the system is wrong?"
+
+Define:
+
+- The user
+- The workflow
+- The decision being supported
+- The failure cost
+- The source systems
+- The approval path
+- The expected latency
+- The owner after launch
+
+<Callout title="Production framing">
+  A prototype proves possibility. A production LLM app proves repeatability,
+  accountability, and value under normal operating conditions.
+</Callout>
+
+## Scope the Workflow
+
+Choose a workflow that is narrow enough to evaluate but valuable enough to matter. Avoid starting with "answer anything about the business." That scope is too broad for security, evaluation, and product design.
+
+Good first workflows:
+
+- Summarize a customer escalation and draft a response.
+- Search policy documents with citations.
+- Generate a warehouse exception report from operational events.
+- Classify support tickets and recommend next actions.
+- Extract structured fields from inspection notes.
+- Compare contract clauses against an approved policy.
+
+Poor first workflows:
+
+- General company chatbot
+- Autonomous operations manager
+- Full customer support replacement
+- Unbounded data analyst
+- Anything where failure affects customers without review
+
+## Requirements Template
+
+Before implementation, write a one-page workflow spec:
+
+<Architecture title="Workflow spec">
+
+1. User role: Who uses it?
+2. Trigger: When does the workflow start?
+3. Input: What data is provided?
+4. Sources: Which systems are trusted?
+5. Output: What format must be produced?
+6. Risk: What can go wrong?
+7. Approval: Who reviews risky outputs?
+8. Metrics: How will success be measured?
+9. Owner: Who improves it after launch?
+
+</Architecture>
+
+This spec prevents the team from hiding product ambiguity inside prompts.
 
 ## Evaluation
 
 Create evaluation examples before the first production release. They do not need to be perfect. They need to exist early.
 
+Start with 50 to 100 realistic examples:
+
+- Common successful cases
+- Ambiguous cases
+- Missing-data cases
+- Permission-sensitive cases
+- Adversarial or prompt-injection cases
+- Cases requiring refusal
+- Cases requiring escalation
+
+Evaluation should include more than answer quality. For production systems, evaluate the whole behavior:
+
+- Did the system retrieve the right evidence?
+- Did it follow the required output format?
+- Did it avoid unsupported claims?
+- Did it trigger approval when required?
+- Did it refuse when evidence was missing?
+- Did it stay within latency and cost targets?
+- Did the user complete the workflow faster or better?
+
 ## Runtime Design
+
+A production LLM app needs a runtime boundary. The model should not sit directly inside product code without versioning, tracing, policy, or rollback.
+
+Core runtime capabilities:
 
 - Model routing
 - Prompt versioning
 - Tool permissions
+- Retrieval or context assembly
 - Trace logging
+- Evaluation hooks
 - Cost controls
+- Rate limits
 - Rollback plan
+- Human approval
+
+<Mermaid
+  chart={`graph LR
+User[User Workflow] --> App[Product App]
+App --> Gateway[AI Gateway]
+Gateway --> Policy[Policy + Permissions]
+Gateway --> Retrieval[Retrieval + Context]
+Gateway --> Model[Model Router]
+Model --> Eval[Evaluation Hooks]
+Eval --> Trace[Trace Store]
+Trace --> Dashboard[Quality Dashboard]`}
+/>
+
+## Prompt and Model Versioning
+
+Prompts are production artifacts. Treat them like code.
+
+Version:
+
+- System prompts
+- Tool descriptions
+- Output schemas
+- Retrieval settings
+- Model choices
+- Safety and refusal rules
+
+Every trace should include the model version and prompt version. Without this, regression analysis becomes guesswork.
+
+## Tool Design
+
+Tools should be narrow, typed, and governed. Avoid giving the model a generic API client. A tool should represent a specific capability with clear inputs, clear outputs, and clear side effects.
+
+<CodeBlock>{`{
+  "name": "ticket.search",
+  "description": "Search support tickets visible to the current user",
+  "input_schema": {
+    "customer_id": "string",
+    "status": "open | closed | any",
+    "limit": "number"
+  },
+  "side_effect": false,
+  "approval_required": false
+}`}</CodeBlock>
+
+For write actions, require approval unless the workflow is low risk and rollback is clear.
 
 ## Human Approval
 
 Human review is a feature, not a failure. Approval workflows make autonomy acceptable in enterprise environments.
 
+Use approval when:
+
+- Money moves
+- Customer communication is sent
+- Access changes
+- Records are deleted or modified
+- Operational state changes
+- The system has low confidence
+- Evidence conflicts
+- Policy requires a human owner
+
+A good approval screen should show the draft, supporting evidence, tool calls, risk level, and reason approval is required.
+
+## Observability
+
+Production LLM apps need traces that product and engineering teams can understand.
+
+Trace:
+
+- User request
+- Retrieved sources
+- Tool calls
+- Model and prompt versions
+- Intermediate outputs
+- Policy decisions
+- Final output
+- User feedback
+- Cost and latency
+
+The trace should let the team answer: did the failure come from the model, retrieval, tool output, prompt, policy, or user ambiguity?
+
+## Cost Controls
+
+Cost should be designed into the workflow:
+
+- Use smaller models for classification and routing.
+- Use stronger models only when the workflow needs them.
+- Limit context size with better retrieval.
+- Cache safe intermediate outputs.
+- Put budgets on workflows.
+- Track cost per successful task, not only cost per token.
+
+The right metric is not cheapest model. It is cost per reliable business outcome.
+
+## Launch Plan
+
+Launch in stages:
+
+1. Internal dry run with traces and evals.
+2. Pilot with a small user group.
+3. Human-in-the-loop production.
+4. Scoped autonomy for low-risk paths.
+5. Broader rollout with dashboards and incident review.
+
+Do not skip the pilot stage. It reveals workflow reality that benchmark examples miss.
+
 ## Deployment Checklist
 
 <Callout title="Before launch">
-  Define success metrics, failure modes, escalation paths, and ownership before
-  expanding usage.
+  Define success metrics, failure modes, escalation paths, ownership, and
+  rollback behavior before expanding usage.
 </Callout>
+
+Use this checklist:
+
+- Workflow spec is approved.
+- Evaluation set exists.
+- Prompt and model versions are tracked.
+- Tool permissions are enforced.
+- Human approval paths are implemented.
+- Traces are searchable.
+- Cost and latency are measured.
+- Rollback plan exists.
+- Support team knows failure modes.
+- Product owner reviews feedback weekly.
+
+## After Launch
+
+The first release is not the finish line. It is the beginning of the learning loop.
+
+Every week, review:
+
+- Top failed workflows
+- Common user corrections
+- Missing source data
+- Slow or expensive steps
+- Approval bottlenecks
+- New evaluation examples from real failures
+
+The best production LLM teams treat every incident as evaluation data and every evaluation gap as product debt.

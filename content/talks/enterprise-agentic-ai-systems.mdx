@@ -12,7 +12,7 @@ tags:
   - AI Platform Engineering
   - Leadership
 featured: false
-readingTime: 5
+readingTime: 9
 difficulty: Beginner
 series: Talks
 seoTitle: Enterprise Agentic AI Systems Talk
@@ -23,15 +23,201 @@ seoDescription: Talk outline on building Enterprise Agentic AI Systems with tool
 
 Agentic AI will not be adopted in enterprises because agents are clever. It will be adopted when systems are reliable, governable, observable, and useful to real workflows.
 
-## Topics
+This talk is about moving from impressive demos to enterprise-grade agentic systems. The focus is architecture, product judgment, security, human approval, and the operating model required to make AI systems trustworthy.
 
-- Agent architecture
-- Memory and context
-- Tool access
-- Human approval
-- Observability
-- Governance
+<Callout title="Talk thesis">
+  The next generation of enterprise products will not be navigated. They will be
+  partnered with. That shift requires better infrastructure, clearer workflows,
+  and stronger governance.
+</Callout>
 
 ## Audience
 
-Technology leaders, product teams, architects, and engineering leaders building production AI platforms.
+This session is for:
+
+- Technology leaders
+- Product teams
+- AI platform teams
+- Enterprise architects
+- Engineering managers
+- Founders building AI products
+- Business leaders evaluating agentic workflows
+
+No deep machine learning background is required. The talk focuses on systems, product design, and adoption.
+
+## Key Questions
+
+The talk answers:
+
+- What makes an AI system "agentic" in an enterprise context?
+- Why do agent demos break in production?
+- How should tools, memory, and approvals be designed?
+- What architecture patterns make agent systems governable?
+- How should teams evaluate and operate these systems?
+- What should CTOs and product leaders invest in before scaling?
+
+## Talk Flow
+
+### 1. From Tools to Partners
+
+Traditional software asks users to navigate. Agentic software asks users to express intent.
+
+This changes the interface:
+
+- Users describe outcomes.
+- Systems coordinate tools.
+- Workflows become conversational and contextual.
+- Approvals become part of the product.
+- The product must explain its actions.
+
+The interface shift is exciting, but it only works if the system underneath is strong.
+
+### 2. Why Demos Mislead Us
+
+Demos are controlled. Enterprises are messy.
+
+In demos:
+
+- Inputs are clean.
+- Data is accessible.
+- Failure has no cost.
+- Security is simplified.
+- The happy path is known.
+
+In enterprises:
+
+- Users ask incomplete questions.
+- Data is fragmented.
+- Permissions matter.
+- Workflows have exceptions.
+- Outputs affect customers, money, operations, or compliance.
+
+The talk uses this contrast to explain why production architecture matters.
+
+### 3. The Enterprise Agent Stack
+
+<Architecture title="Enterprise agent stack">
+
+1. Intent layer: understand the user's goal.
+2. Planning layer: decompose work into steps.
+3. Tool layer: access enterprise systems through governed APIs.
+4. Memory layer: store useful context with ownership and retention.
+5. Policy layer: enforce permissions, risk rules, and approvals.
+6. Evaluation layer: measure quality across the workflow.
+7. Observability layer: trace decisions, tools, costs, and failures.
+
+</Architecture>
+
+<Mermaid
+  chart={`graph LR
+Intent[Intent] --> Plan[Plan]
+Plan --> Tools[Tools]
+Tools --> Memory[Memory]
+Plan --> Policy[Policy]
+Policy --> Approval[Human Approval]
+Tools --> Observe[Observability]
+Observe --> Eval[Evaluation]
+Eval --> Improve[Continuous Improvement]`}
+/>
+
+### 4. Tools Are Power
+
+Tool access is where agents become useful and risky.
+
+A model that can draft text is one thing. A model that can read customer data, update systems, send emails, trigger workflows, or change operational state is different.
+
+The talk introduces the tool gateway pattern:
+
+- Typed tool contracts
+- Permission checks
+- Read/write separation
+- Argument validation
+- Audit logs
+- Approval for side effects
+- Rollback behavior where possible
+
+### 5. Memory Is a Product Surface
+
+Memory should not be treated as a hidden transcript.
+
+The talk separates memory into:
+
+- Session memory
+- User preference memory
+- Workflow memory
+- Organizational memory
+
+Each memory type needs rules for visibility, editing, deletion, retention, and access.
+
+### 6. Human Approval Is Not Anti-Autonomy
+
+Human approval makes autonomy acceptable.
+
+The talk reframes approval as a design tool:
+
+- Low-risk work can be autonomous.
+- Medium-risk work can be reviewed.
+- High-risk work can require explicit approval.
+- Unknown or conflicting evidence can trigger escalation.
+
+This lets organizations scale AI without pretending every workflow should be fully autonomous.
+
+### 7. Evaluation Beyond Final Answers
+
+Agent systems need workflow evaluation.
+
+Evaluate:
+
+- Routing
+- Planning
+- Tool choice
+- Tool arguments
+- Evidence quality
+- Memory behavior
+- Approval triggers
+- Final output
+- Recovery from failure
+
+This section gives leaders a practical way to ask better questions before approving production rollout.
+
+## Example Scenario
+
+The talk uses a customer escalation workflow:
+
+1. User asks for an escalation summary.
+2. Router classifies the workflow.
+3. Planner identifies CRM, ticket, and incident sources.
+4. Research agent gathers evidence.
+5. Communication agent drafts a customer update.
+6. Policy layer detects customer-facing communication.
+7. Human approval is required before sending.
+8. Trace is stored for review and improvement.
+
+This scenario makes the architecture concrete.
+
+## Takeaways
+
+The audience should leave with five ideas:
+
+1. Agentic AI is a product and systems problem, not only a model problem.
+2. Tool access must be governed before it is scaled.
+3. Memory needs ownership, visibility, and retention rules.
+4. Human approval is a feature that enables adoption.
+5. Evaluation must cover the workflow, not only the final answer.
+
+## Suggested Format
+
+This talk works well as:
+
+- 25-minute keynote
+- 45-minute conference session
+- 60-minute leadership workshop
+- 90-minute architecture deep dive
+
+For workshops, the best exercise is to choose one real enterprise workflow and map its intent, tools, memory, approvals, evaluation, and observability.
+
+## Closing
+
+The future of enterprise software is not only more automation. It is better collaboration between people and systems.
+
+Agentic products will succeed when they make work clearer, safer, faster, and more accountable. That requires strong foundations: architecture, product discipline, and leadership willing to slow down in the right places so the system can scale later.
