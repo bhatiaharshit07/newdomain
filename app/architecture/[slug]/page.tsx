@@ -8,6 +8,7 @@ import {
   getContentEntry,
   getRelatedContent,
 } from "@/lib/content";
+import { getContentMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -29,13 +30,7 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    title: entry.seoTitle ?? entry.title,
-    description: entry.seoDescription ?? entry.description,
-    alternates: {
-      canonical: entry.canonical ?? entry.url,
-    },
-  };
+  return getContentMetadata(entry);
 }
 
 export default async function ArchitectureArticlePage({ params }: PageProps) {

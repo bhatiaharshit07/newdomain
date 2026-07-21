@@ -247,6 +247,8 @@ export function getSearchIndex() {
     category: entry.category,
     tags: entry.tags,
     published: entry.published,
+    updated: entry.updated,
+    cover: entry.cover,
     body: entry.body
       .replace(/<[^>]+>/g, " ")
       .replace(/[#*_`>-]/g, " ")

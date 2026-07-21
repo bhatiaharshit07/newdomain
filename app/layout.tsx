@@ -17,6 +17,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
@@ -25,8 +26,24 @@ export const metadata: Metadata = {
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "technology",
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   openGraph: {
     title: siteConfig.title,
@@ -52,6 +69,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 
@@ -88,37 +110,14 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: siteConfig.title,
+    name: siteConfig.name,
+    alternateName: "Harshit Bhatia - Enterprise Agentic AI Systems",
     url: siteConfig.url,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${siteConfig.url}/?q={search_term_string}`,
+      target: `${siteConfig.url}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Architecture",
-        item: `${siteConfig.url}/#architecture`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Insights",
-        item: `${siteConfig.url}/insights`,
-      },
-    ],
   },
 ];
 

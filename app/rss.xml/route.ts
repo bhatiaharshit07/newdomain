@@ -20,6 +20,8 @@ export function GET() {
           <guid>${siteConfig.url}${entry.url}</guid>
           <description>${escapeXml(entry.description)}</description>
           <pubDate>${new Date(entry.published).toUTCString()}</pubDate>
+          ${entry.category ? `<category>${escapeXml(entry.category)}</category>` : ""}
+          ${entry.cover ? `<enclosure url="${siteConfig.url}${entry.cover}" type="image/png" />` : ""}
         </item>`,
     )
     .join("");

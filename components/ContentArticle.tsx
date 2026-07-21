@@ -2,8 +2,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { ContentCard } from "@/components/ContentCard";
 import { ContentProgressBar } from "@/components/ContentProgressBar";
+import { JsonLd } from "@/components/JsonLd";
 import { mdxComponents } from "@/components/MdxComponents";
 import { contentTypes, type ContentEntry } from "@/lib/content";
+import { getContentBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 type ContentArticleProps = {
@@ -26,15 +28,27 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
     },
     mainEntityOfPage: `${siteConfig.url}${entry.url}`,
     keywords: entry.tags.join(", "),
+    articleSection: entry.category,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/favicon.svg`,
+      },
+    },
+    ...(entry.cover
+      ? {
+          image: [`${siteConfig.url}${entry.cover}`],
+        }
+      : {}),
   };
+  const breadcrumbSchema = getContentBreadcrumbSchema(entry);
 
   return (
     <>
       <ContentProgressBar />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+      <JsonLd data={[articleSchema, breadcrumbSchema]} />
       <article className="px-6 pb-24 pt-32">
         <div className="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div>
