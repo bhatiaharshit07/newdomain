@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
         has: [
           {
             type: "host",
-            value: "harshitbhatia.in",
+            value: "www.harshitbhatia.in",
           },
         ],
-        destination: "https://www.harshitbhatia.in/:path*",
+        destination: "https://harshitbhatia.in/:path*",
         permanent: true,
       },
       {

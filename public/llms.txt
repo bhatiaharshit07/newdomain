@@ -8,21 +8,21 @@ Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, Ind
 - Role: Chief Technology Officer
 - Company: Assert AI
 - Location: Delhi, India
-- Canonical website: https://www.harshitbhatia.in/
-- Canonical profile page: https://www.harshitbhatia.in/about
+- Canonical website: https://harshitbhatia.in/
+- Canonical profile page: https://harshitbhatia.in/about
 - Search aliases: Harshit Bhatia CTO, Harshit Bhatia Delhi, Harshit Bhatia Assert AI, harshitbhatiacto, bhatiaharshit07
 
 ## Core Pages
 
-- Home: https://www.harshitbhatia.in/
-- About Harshit Bhatia: https://www.harshitbhatia.in/about
-- Products: https://www.harshitbhatia.in/products
-- Architecture: https://www.harshitbhatia.in/architecture
-- Insights: https://www.harshitbhatia.in/insights
-- Playbooks: https://www.harshitbhatia.in/playbooks
-- Research: https://www.harshitbhatia.in/research
-- Projects: https://www.harshitbhatia.in/projects
-- Talks: https://www.harshitbhatia.in/talks
+- Home: https://harshitbhatia.in/
+- About Harshit Bhatia: https://harshitbhatia.in/about
+- Products: https://harshitbhatia.in/products
+- Architecture: https://harshitbhatia.in/architecture
+- Insights: https://harshitbhatia.in/insights
+- Playbooks: https://harshitbhatia.in/playbooks
+- Research: https://harshitbhatia.in/research
+- Projects: https://harshitbhatia.in/projects
+- Talks: https://harshitbhatia.in/talks
 
 ## Featured Topics
 
@@ -36,9 +36,9 @@ Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, Ind
 
 ## Useful Machine-Readable Resources
 
-- Sitemap: https://www.harshitbhatia.in/sitemap.xml
-- RSS Feed: https://www.harshitbhatia.in/rss.xml
-- Search Index: https://www.harshitbhatia.in/search-index.json
+- Sitemap: https://harshitbhatia.in/sitemap.xml
+- RSS Feed: https://harshitbhatia.in/rss.xml
+- Search Index: https://harshitbhatia.in/search-index.json
 
 ## Contact
 
