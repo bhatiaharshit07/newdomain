@@ -1,53 +1,42 @@
-# Harshit Bhatia
+# harshitbhatia.in - Harshit Bhatia
 
-Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, India. His work focuses on Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI, AI Security, LLM applications, and CTO leadership.
+> Official personal website of Harshit Bhatia, Chief Technology Officer at Assert AI in Delhi, India. The site documents his work in Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI, AI Security, LLM applications, CTO leadership, and product architecture.
 
-## Entity Identity
+## Identity
 
-- Primary name: Harshit Bhatia
-- Role: Chief Technology Officer
-- Company: Assert AI
-- Location: Delhi, India
-- Education: Indian School of Business; Maharaja Surajmal Institute Of Technology
-- Canonical website: https://harshitbhatia.in/
-- Canonical profile page: https://harshitbhatia.in/about
-- Search aliases: Harshit Bhatia CTO, Harshit Bhatia Delhi, Harshit Bhatia Assert AI, harshitbhatiacto, bhatiaharshit07
+- [Harshit Bhatia](https://harshitbhatia.in/about): Canonical profile page for Harshit Bhatia, CTO at Assert AI, based in Delhi, India.
+- [Assert AI](https://www.linkedin.com/company/assert-ai/): Company where Harshit Bhatia serves as Chief Technology Officer.
+- [LinkedIn Profile](https://in.linkedin.com/in/harshitbhatiacto): Professional profile for Harshit Bhatia.
+- [GitHub Profile](https://github.com/bhatiaharshit07): GitHub profile for Harshit Bhatia.
 
 ## Education
 
-- Indian School of Business: Emerging Leaders Programme, Organizational Leadership (Jun 2024 - Jan 2025)
-- Maharaja Surajmal Institute Of Technology: Bachelor of Technology - BTech (Apr 2017 - May 2021)
+- [Indian School of Business](https://harshitbhatia.in/about): Emerging Leaders Programme in Organizational Leadership, completed from Jun 2024 to Jan 2025.
+- [Maharaja Surajmal Institute Of Technology](https://harshitbhatia.in/about): Bachelor of Technology, completed from Apr 2017 to May 2021.
 
 ## Core Pages
 
-- Home: https://harshitbhatia.in/
-- About Harshit Bhatia: https://harshitbhatia.in/about
-- Products: https://harshitbhatia.in/products
-- Architecture: https://harshitbhatia.in/architecture
-- Insights: https://harshitbhatia.in/insights
-- Playbooks: https://harshitbhatia.in/playbooks
-- Research: https://harshitbhatia.in/research
-- Projects: https://harshitbhatia.in/projects
-- Talks: https://harshitbhatia.in/talks
+- [Home](https://harshitbhatia.in/): Primary website homepage for Harshit Bhatia.
+- [About](https://harshitbhatia.in/about): Entity profile with role, location, education, expertise, and external profile links.
+- [Products](https://harshitbhatia.in/products): Product and platform work related to enterprise AI systems.
+- [Architecture](https://harshitbhatia.in/architecture): Reference architectures for AI systems, RAG, multi-agent workflows, and platform design.
+- [Insights](https://harshitbhatia.in/insights): Long-form writing on Enterprise AI, Agentic AI, LLM applications, and product leadership.
+- [Playbooks](https://harshitbhatia.in/playbooks): Practical implementation guides for production AI systems and CTO operating practices.
+- [Research](https://harshitbhatia.in/research): Research notes, comparisons, and technical investigations.
+- [Projects](https://harshitbhatia.in/projects): Selected product, architecture, and engineering projects.
+- [Talks](https://harshitbhatia.in/talks): Talks, public notes, and presentation topics.
 
-## Featured Topics
+## Topic Hubs
 
-- Enterprise Agentic AI Systems
-- Multi-agent system architecture
-- Enterprise RAG and AI gateway design
-- Production LLM applications
-- Computer vision and edge AI platforms
-- AI security, governance, and observability
-- Product leadership and CTO operating systems
-- Organizational leadership and digital economy
+- [Enterprise AI](https://harshitbhatia.in/insights): Writing and references on enterprise-grade AI platforms, governance, delivery, and adoption.
+- [Agentic AI](https://harshitbhatia.in/architecture): Architectures for agentic interfaces, multi-agent orchestration, tool use, memory, and human approval.
+- [Computer Vision](https://harshitbhatia.in/projects): Work related to computer vision systems, edge AI, and applied AI infrastructure.
+- [AI Architecture](https://harshitbhatia.in/architecture): System design patterns for RAG, LLM applications, AI gateways, observability, and security.
+- [CTO Leadership](https://harshitbhatia.in/playbooks): Operating notes on technology leadership, product discipline, and organizational decision-making.
 
-## Useful Machine-Readable Resources
+## Machine-Readable Resources
 
-- Sitemap: https://harshitbhatia.in/sitemap.xml
-- RSS Feed: https://harshitbhatia.in/rss.xml
-- Search Index: https://harshitbhatia.in/search-index.json
-
-## Contact
-
-- LinkedIn: https://in.linkedin.com/in/harshitbhatiacto
-- GitHub: https://github.com/bhatiaharshit07
+- [Sitemap](https://harshitbhatia.in/sitemap.xml): XML sitemap containing canonical public URLs for search engines.
+- [RSS Feed](https://harshitbhatia.in/rss.xml): Feed for published articles and updates.
+- [Search Index](https://harshitbhatia.in/search-index.json): Local search index for site content and metadata.
+- [LLMs Text](https://harshitbhatia.in/llms.txt): This machine-readable summary for LLM crawlers and AI search systems.
