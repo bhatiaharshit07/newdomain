@@ -16,7 +16,7 @@ export const siteConfig = {
   links: {
     linkedin: "https://in.linkedin.com/in/harshitbhatiacto",
     github: "https://github.com/bhatiaharshit07",
-    email: "mailto:hello@harshitbhatia.com",
+    email: "mailto:bhatiaharshit07@gmail.com",
     resume: "/resume.pdf",
   },
 };
