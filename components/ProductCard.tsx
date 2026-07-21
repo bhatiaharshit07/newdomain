@@ -41,7 +41,7 @@ export function ProductCard({ product, reverse }: ProductCardProps) {
         </div>
         <div>
           <Button href={product.href} icon={ArrowUpRight} variant="secondary">
-            Discuss this product
+            Discuss {product.name}
           </Button>
         </div>
       </div>

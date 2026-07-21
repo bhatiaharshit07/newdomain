@@ -13,7 +13,7 @@ export function ContentCard({ entry }: ContentCardProps) {
         {entry.cover ? (
           <div className="mb-6 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
             <Image
-              alt=""
+              alt={`Cover image for ${entry.title}`}
               className="aspect-[16/9] w-full object-cover"
               height={360}
               src={entry.cover}
@@ -50,6 +50,7 @@ export function ContentCard({ entry }: ContentCardProps) {
         className="mt-8 inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--foreground)] transition-colors group-hover:border-[color:var(--foreground)] group-hover:bg-[color:var(--foreground)] group-hover:text-[color:var(--background)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
         href={entry.url}
       >
+        <span className="sr-only">Read {entry.title}</span>
         <ArrowUpRight aria-hidden="true" size={18} />
       </a>
     </article>

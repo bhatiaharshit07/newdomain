@@ -17,7 +17,9 @@ import { siteConfig } from "@/lib/site";
 
 export default function Home() {
   const architectureEntries = getContentByType("architecture").slice(0, 3);
-  const featuredContent = getFeaturedContent(3);
+  const featuredContent = getFeaturedContent(6)
+    .filter((entry) => entry.type !== "architecture")
+    .slice(0, 3);
 
   return (
     <main id="top">
@@ -36,7 +38,7 @@ export default function Home() {
             <div className="mt-8 flex items-center justify-center gap-4">
               <div aria-hidden="true" className="hero-avatar">
                 <Image
-                  alt=""
+                  alt="Harshit Bhatia, Chief Technology Officer at Assert AI"
                   className="object-cover"
                   fill
                   priority
@@ -78,6 +80,7 @@ export default function Home() {
           className="absolute bottom-8 left-1/2 inline-flex size-11 -translate-x-1/2 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--muted)] transition-colors hover:text-[color:var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
           href="#mission"
         >
+          <span className="sr-only">Scroll to mission statement</span>
           <ArrowDown aria-hidden="true" size={18} />
         </a>
       </section>

@@ -1,10 +1,9 @@
 export const siteConfig = {
   name: "Harshit Bhatia",
-  title:
-    "Harshit Bhatia | Chief Technology Officer | Enterprise Agentic AI Systems",
+  title: "Harshit Bhatia | Enterprise AI CTO",
   description:
-    "Harshit Bhatia is the Chief Technology Officer at Assert AI specializing in Enterprise Agentic AI Systems, AI Platform Engineering, Computer Vision, Edge AI and AI Security.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://harshitbhatia.in",
+    "Harshit Bhatia, CTO at Assert AI, builds enterprise agentic AI systems across platform engineering, computer vision, edge AI and AI security.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.harshitbhatia.in",
   keywords: [
     "AI",
     "Enterprise AI",

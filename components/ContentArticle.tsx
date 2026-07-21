@@ -81,7 +81,7 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
             {entry.cover ? (
               <figure className="mt-10 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
                 <Image
-                  alt=""
+                  alt={`Cover image for ${entry.title}`}
                   className="h-auto w-full object-cover"
                   height={720}
                   priority
