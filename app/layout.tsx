@@ -51,8 +51,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
-    url: "/",
+    url: siteConfig.url,
     siteName: siteConfig.name,
+    locale: "en_US",
     type: "website",
     images: [
       {
@@ -160,7 +161,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" prefix="og: https://ogp.me/ns#" suppressHydrationWarning>
       <head>
         <Script
           async

@@ -50,6 +50,7 @@ export function getPageMetadata({
       description,
       url: path,
       siteName: siteConfig.name,
+      locale: "en_US",
       type,
       images: [imageConfig],
       ...(type === "article"
