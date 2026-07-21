@@ -18,6 +18,7 @@ export function ContentCard({ entry }: ContentCardProps) {
               height={360}
               loading="lazy"
               src={entry.cover}
+              title={`Cover image for ${entry.title}`}
               width={640}
             />
           </div>

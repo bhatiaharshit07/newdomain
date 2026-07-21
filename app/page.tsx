@@ -40,6 +40,7 @@ export default function Home() {
                 fetchPriority="high"
                 height={160}
                 src="/harshit-bhatia-avatar.jpeg"
+                title="Harshit Bhatia, Chief Technology Officer at Assert AI"
                 width={160}
               />
             </div>

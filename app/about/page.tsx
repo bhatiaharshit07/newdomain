@@ -92,6 +92,7 @@ export default function AboutPage() {
               className="size-28 rounded-full border border-[color:var(--border)] object-cover"
               height={160}
               src="/harshit-bhatia-avatar.jpeg"
+              title="Harshit Bhatia, Chief Technology Officer at Assert AI"
               width={160}
             />
             <h1 className="mt-6 text-3xl font-semibold text-[color:var(--foreground)]">

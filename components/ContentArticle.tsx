@@ -85,6 +85,7 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
                   className="h-auto w-full object-cover"
                   height={720}
                   src={entry.cover}
+                  title={`Cover image for ${entry.title}`}
                   width={1280}
                 />
               </figure>
