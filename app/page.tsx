@@ -18,18 +18,8 @@ export default function Home() {
   return (
     <main id="top">
       <Navbar />
-      <section className="relative flex min-h-screen items-center px-6 pb-20 pt-28">
-        <div aria-hidden="true" className="hero-portrait">
-          <Image
-            alt=""
-            className="object-cover"
-            fill
-            priority
-            sizes="(min-width: 1024px) 42vw, 82vw"
-            src="/harshit-bhatia.jpeg"
-          />
-        </div>
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center">
+      <section className="relative flex min-h-screen items-center px-6 pb-16 pt-20 sm:pt-24">
+        <div className="mx-auto flex w-full max-w-7xl -translate-y-6 flex-col items-center text-center sm:-translate-y-8">
           <MotionReveal>
             <Badge>Enterprise AI · Computer Vision · Agentic Systems</Badge>
           </MotionReveal>
@@ -39,13 +29,25 @@ export default function Home() {
             </h1>
           </MotionReveal>
           <MotionReveal delay={0.12}>
-            <div className="mt-8 space-y-2">
-              <p className="text-xl font-medium text-[color:var(--foreground)] sm:text-2xl">
-                Harshit Bhatia
-              </p>
-              <p className="text-base text-[color:var(--muted)] sm:text-lg">
-                Chief Technology Officer
-              </p>
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <div aria-hidden="true" className="hero-avatar">
+                <Image
+                  alt=""
+                  className="object-cover"
+                  fill
+                  priority
+                  sizes="56px"
+                  src="/harshit-bhatia.jpeg"
+                />
+              </div>
+              <div className="space-y-1 text-left">
+                <p className="text-xl font-medium text-[color:var(--foreground)] sm:text-2xl">
+                  Harshit Bhatia
+                </p>
+                <p className="text-base text-[color:var(--muted)] sm:text-lg">
+                  Chief Technology Officer
+                </p>
+              </div>
             </div>
           </MotionReveal>
           <MotionReveal delay={0.18}>
