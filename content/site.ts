@@ -30,7 +30,7 @@ export const metrics: Metric[] = [
   { value: 3, label: "AI Platforms Built" },
   { value: null, display: "Millions", label: "Business Events Processed" },
   { value: null, display: "Multiple", label: "Industries Served" },
-  { value: null, display: "Cloud + Edge", label: "Enterprise Deployments" },
+  { value: null, display: "Cloud + Edge", label: "Deployment Models" },
 ];
 
 export const products: Product[] = [
