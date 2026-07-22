@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ArrowDown, Download } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { ContentIndex } from "@/components/ContentIndex";
 import { Footer } from "@/components/Footer";
 import { MetricGrid } from "@/components/MetricGrid";
@@ -61,14 +61,6 @@ export default function Home() {
           <MotionReveal delay={0.18}>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button href="/products">View Products</Button>
-              <Button
-                href={siteConfig.links.resume}
-                icon={Download}
-                variant="secondary"
-                download
-              >
-                Download Resume
-              </Button>
             </div>
           </MotionReveal>
         </div>

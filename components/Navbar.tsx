@@ -1,8 +1,5 @@
-import { Download } from "lucide-react";
 import Link from "next/link";
 import { navigation } from "@/content/site";
-import { siteConfig } from "@/lib/site";
-import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function Navbar() {
@@ -33,16 +30,6 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button
-            aria-label="Download resume"
-            className="hidden sm:inline-flex"
-            href={siteConfig.links.resume}
-            icon={Download}
-            variant="secondary"
-            download
-          >
-            Resume
-          </Button>
         </div>
       </nav>
     </header>
