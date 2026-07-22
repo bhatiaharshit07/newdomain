@@ -28,8 +28,8 @@ export const metrics: Metric[] = [
   { value: 50, suffix: "+", label: "Engineers Led" },
   { value: 30, suffix: "+", label: "Enterprise Deployments" },
   { value: 3, label: "AI Platforms Built" },
-  { value: null, display: "Millions", label: "Business Events Processed" },
-  { value: null, display: "Multiple", label: "Industries Served" },
+  { value: 10, suffix: "M+", label: "Business Events Processed" },
+  { value: 5, suffix: "+", label: "Industries Served" },
   { value: null, display: "Cloud + Edge", label: "Deployment Models" },
 ];
 
