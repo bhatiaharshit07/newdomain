@@ -291,29 +291,29 @@ body {
   width: 54%;
 }
 
-.product-visual-pratham .visual-grid {
+.product-visual-workflow .visual-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   transform: rotate(-4deg);
 }
 
-.product-visual-pratham .visual-grid span:nth-child(3n + 1) {
+.product-visual-workflow .visual-grid span:nth-child(3n + 1) {
   background: rgba(17, 17, 17, 0.08);
   border-color: rgba(17, 17, 17, 0.12);
 }
 
 :root[data-theme="dark"]
-  .product-visual-pratham
+  .product-visual-workflow
   .visual-grid
   span:nth-child(3n + 1) {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-.product-visual-logix .visual-grid {
+.product-visual-warehouse .visual-grid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
 }
 
-.product-visual-logix .visual-grid span:nth-child(even) {
+.product-visual-warehouse .visual-grid span:nth-child(even) {
   background: rgba(37, 99, 235, 0.18);
 }

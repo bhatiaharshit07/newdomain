@@ -35,31 +35,31 @@ export const metrics: Metric[] = [
 
 export const products: Product[] = [
   {
-    name: "Alpha",
+    name: "Analytics",
     title: "Enterprise Analytics Platform",
     description:
       "A decision intelligence layer for operational teams that need reliable signals from high-volume visual and business events.",
     tags: ["Computer Vision", "Event Analytics", "Enterprise AI"],
     href: "/#contact",
-    visual: "alpha",
+    visual: "analytics",
   },
   {
-    name: "Pratham",
+    name: "AI Workflow Builder",
     title: "No-Code AI Builder",
     description:
       "A platform for composing AI workflows without forcing domain teams to become infrastructure specialists.",
     tags: ["No-Code", "LLMs", "Workflow Automation"],
     href: "/#contact",
-    visual: "pratham",
+    visual: "workflow",
   },
   {
-    name: "LOGIX",
+    name: "Warehouse Intelligence",
     title: "Warehouse Intelligence Platform",
     description:
       "Real-time visibility for warehouses, yards, and fulfillment environments where speed, accuracy, and resilience matter.",
     tags: ["Edge AI", "Warehousing", "Operations"],
     href: "/#contact",
-    visual: "logix",
+    visual: "warehouse",
   },
 ];
 

@@ -1,5 +1,5 @@
 type ProductVisualProps = {
-  variant: "alpha" | "pratham" | "logix";
+  variant: "analytics" | "workflow" | "warehouse";
 };
 
 export function ProductVisual({ variant }: ProductVisualProps) {

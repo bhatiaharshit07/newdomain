@@ -10,7 +10,7 @@ import { getBreadcrumbSchema, getPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = getPageMetadata({
   title: "Projects",
   description:
-    "Project architecture notes for Alpha, Pratham, LOGIX, computer vision platforms, and enterprise AI systems.",
+    "Project architecture notes for analytics, AI workflows, warehouse intelligence, computer vision platforms, and enterprise AI systems.",
   path: "/projects",
 });
 

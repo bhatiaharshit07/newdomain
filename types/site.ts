@@ -18,7 +18,7 @@ export type Product = {
   description: string;
   tags: string[];
   href: string;
-  visual: "alpha" | "pratham" | "logix";
+  visual: "analytics" | "workflow" | "warehouse";
 };
 
 export type TimelineItem = {
