@@ -3,12 +3,17 @@ import type { ReactNode } from "react";
 type AnimatedHeadingProps = {
   children: ReactNode;
   className?: string;
+  as?: "h1" | "h2";
 };
 
-export function AnimatedHeading({ children, className }: AnimatedHeadingProps) {
+export function AnimatedHeading({
+  children,
+  className,
+  as: Heading = "h2",
+}: AnimatedHeadingProps) {
   return (
-    <h2 className={["motion-reveal", className].filter(Boolean).join(" ")}>
+    <Heading className={["motion-reveal", className].filter(Boolean).join(" ")}>
       {children}
-    </h2>
+    </Heading>
   );
 }

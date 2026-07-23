@@ -9,7 +9,12 @@ export type Metric = {
 
 export type NavigationItem = {
   label: string;
-  href: string;
+  href?: string;
+  children?: Array<{
+    label: string;
+    href: string;
+    description: string;
+  }>;
 };
 
 export type Product = {

@@ -108,17 +108,7 @@ The talk uses this contrast to explain why production architecture matters.
 
 </Architecture>
 
-<Mermaid
-  chart={`graph LR
-Intent[Intent] --> Plan[Plan]
-Plan --> Tools[Tools]
-Tools --> Memory[Memory]
-Plan --> Policy[Policy]
-Policy --> Approval[Human Approval]
-Tools --> Observe[Observability]
-Observe --> Eval[Evaluation]
-Eval --> Improve[Continuous Improvement]`}
-/>
+<Mermaid chart="graph LR; Intent[Intent] --> Plan[Plan]; Plan --> Tools[Tools]; Tools --> Memory[Memory]; Plan --> Policy[Policy]; Policy --> Approval[Human Approval]; Tools --> Observe[Observability]; Observe --> Eval[Evaluation]; Eval --> Improve[Continuous Improvement]" />
 
 ### 4. Tools Are Power
 

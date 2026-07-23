@@ -49,19 +49,7 @@ This means the platform must connect computer vision, event processing, analytic
 
 ## Architecture Notes
 
-<Mermaid
-  chart={`graph LR
-Cameras[Camera + Edge Sources] --> Edge[Edge Inference]
-Edge --> Events[Event Normalization]
-Events --> Rules[Rules + Context]
-Rules --> Stream[Event Stream]
-Stream --> Store[Event Store]
-Store --> Analytics[Analytics Layer]
-Analytics --> Alerts[Alerts + Workflows]
-Analytics --> Dashboards[Decision Dashboards]
-Dashboards --> Feedback[Operator Feedback]
-Feedback --> Quality[Model + Rule Quality Loop]`}
-/>
+<Mermaid chart="graph LR; Cameras[Camera + Edge Sources] --> Edge[Edge Inference]; Edge --> Events[Event Normalization]; Events --> Rules[Rules + Context]; Rules --> Stream[Event Stream]; Stream --> Store[Event Store]; Store --> Analytics[Analytics Layer]; Analytics --> Alerts[Alerts + Workflows]; Analytics --> Dashboards[Decision Dashboards]; Dashboards --> Feedback[Operator Feedback]; Feedback --> Quality[Model + Rule Quality Loop]" />
 
 The architecture separates detection from decisioning. This is important because the same detection can mean different things in different operational contexts.
 

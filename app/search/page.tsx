@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContentIndex } from "@/components/ContentIndex";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -42,8 +43,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     <main>
       <Navbar />
       <Section
+        breadcrumbs={
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Search" }]}
+          />
+        }
         className="pt-32"
         eyebrow="Search"
+        headingLevel={1}
         title="Search the knowledge library."
       >
         <form

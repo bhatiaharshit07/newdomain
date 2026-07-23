@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContentIndex } from "@/components/ContentIndex";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
@@ -8,7 +9,7 @@ import { getContentByType } from "@/lib/content";
 import { getBreadcrumbSchema, getPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = getPageMetadata({
-  title: "Speaking",
+  title: "Enterprise & Agentic AI Speaker in India",
   description:
     "Talks, podcasts, panels, guest lectures, slides, and videos on Enterprise Agentic AI Systems and AI platform engineering.",
   path: "/talks",
@@ -26,8 +27,14 @@ export default function TalksPage() {
       <Navbar />
       <JsonLd data={breadcrumbSchema} />
       <Section
+        breadcrumbs={
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Speaking" }]}
+          />
+        }
         className="pt-32"
         eyebrow="Speaking"
+        headingLevel={1}
         title="Talks, podcasts, panels, guest lectures, slides, and videos."
       >
         <ContentIndex entries={entries} />

@@ -17,11 +17,44 @@ import type {
 
 export const navigation: NavigationItem[] = [
   { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
+  {
+    label: "Work",
+    children: [
+      {
+        label: "Products",
+        href: "/products",
+        description: "Enterprise AI platforms and product systems",
+      },
+      {
+        label: "Projects",
+        href: "/projects",
+        description: "Selected architecture and engineering work",
+      },
+    ],
+  },
   { label: "Architecture", href: "/architecture" },
-  { label: "Insights", href: "/insights" },
+  {
+    label: "Writing",
+    children: [
+      {
+        label: "Insights",
+        href: "/insights",
+        description: "Evergreen thinking on enterprise AI",
+      },
+      {
+        label: "Playbooks",
+        href: "/playbooks",
+        description: "Practical guides for production AI systems",
+      },
+      {
+        label: "Research",
+        href: "/research",
+        description: "Evaluations, comparisons, and technical notes",
+      },
+    ],
+  },
   { label: "Speaking", href: "/talks" },
-  { label: "Discussion", href: "/#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export const metrics: Metric[] = [

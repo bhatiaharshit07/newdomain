@@ -5,6 +5,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
+const bingSiteVerification = process.env.BING_SITE_VERIFICATION;
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -28,6 +31,15 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   category: "technology",
+  verification:
+    googleSiteVerification || bingSiteVerification
+      ? {
+          google: googleSiteVerification,
+          other: bingSiteVerification
+            ? { "msvalidate.01": bingSiteVerification }
+            : undefined,
+        }
+      : undefined,
   alternates: {
     canonical: "/",
     languages: {
@@ -60,7 +72,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Harshit Bhatia - Chief Technology Officer specializing in Enterprise Agentic AI Systems.",
+        alt: "Harshit Bhatia - CTO at Assert AI specializing in Enterprise Agentic AI Systems.",
       },
     ],
   },
@@ -100,9 +112,7 @@ const structuredData = [
     image: `${siteConfig.url}/harshit-bhatia-avatar.jpeg`,
     jobTitle: siteConfig.role,
     worksFor: {
-      "@type": "Organization",
-      name: siteConfig.company,
-      url: "https://www.linkedin.com/company/assert-ai/",
+      "@id": `${siteConfig.companyUrl}/#organization`,
     },
     homeLocation: {
       "@type": "Place",
@@ -113,7 +123,11 @@ const structuredData = [
       name: education.school,
     })),
     url: `${siteConfig.url}/about`,
-    sameAs: [siteConfig.links.linkedin, siteConfig.links.github],
+    sameAs: [
+      siteConfig.links.linkedin,
+      siteConfig.links.github,
+      siteConfig.companyTeamUrl,
+    ],
     knowsAbout: [
       "Enterprise Agentic AI Systems",
       "AI Platform Engineering",
@@ -131,10 +145,12 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Assert AI",
+    "@id": `${siteConfig.companyUrl}/#organization`,
+    name: siteConfig.company,
+    url: siteConfig.companyUrl,
+    sameAs: [siteConfig.companyLinkedIn],
     employee: {
-      "@type": "Person",
-      name: siteConfig.name,
+      "@id": `${siteConfig.url}/about#harshit-bhatia`,
     },
   },
   {

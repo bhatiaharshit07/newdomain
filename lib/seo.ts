@@ -6,7 +6,7 @@ const defaultImage = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: "Harshit Bhatia - Chief Technology Officer specializing in Enterprise Agentic AI Systems.",
+  alt: "Harshit Bhatia - CTO at Assert AI specializing in Enterprise Agentic AI Systems.",
 };
 
 type PageMetadataInput = {

@@ -46,7 +46,7 @@ export default function Home() {
             </div>
             <div className="max-w-[50ch] space-y-1 text-left">
               <p className="text-xl font-medium text-[color:var(--foreground)] sm:text-2xl">
-                Enterprise Agentic AI CTO &amp; Architect
+                Enterprise Agentic AI Architect
               </p>
               <p className="text-base text-[color:var(--muted)] sm:text-lg">
                 Chief Technology Officer at Assert AI
@@ -102,18 +102,18 @@ export default function Home() {
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <MotionReveal>
             <p className="max-w-[58ch] text-xl leading-8 text-[color:var(--foreground)]">
-              Harshit Bhatia is the Chief Technology Officer at Assert AI,
-              based in Delhi, India, focused on building Enterprise Agentic AI
-              Systems that move from strategy and architecture into production
+              Harshit Bhatia is the Chief Technology Officer at Assert AI, based
+              in Delhi, India, focused on building Enterprise Agentic AI Systems
+              that move from strategy and architecture into production
               operations.
             </p>
           </MotionReveal>
           <div className="grid gap-6 text-base leading-7 text-[color:var(--muted)] sm:grid-cols-2">
             <MotionReveal delay={0.04}>
               <p>
-                His work connects AI platform engineering, computer vision,
-                edge AI, LLM applications, workflow automation, and AI security
-                into systems that teams can operate, observe, govern, and scale.
+                His work connects AI platform engineering, computer vision, edge
+                AI, LLM applications, workflow automation, and AI security into
+                systems that teams can operate, observe, govern, and scale.
               </p>
             </MotionReveal>
             <MotionReveal delay={0.08}>
@@ -135,9 +135,9 @@ export default function Home() {
             <MotionReveal delay={0.16}>
               <p>
                 The goal is long-term technical compounding: infrastructure that
-                remains dependable after the demo, product decisions that survive
-                customer complexity, and AI interfaces that become partners in
-                real operational work.
+                remains dependable after the demo, product decisions that
+                survive customer complexity, and AI interfaces that become
+                partners in real operational work.
               </p>
             </MotionReveal>
           </div>

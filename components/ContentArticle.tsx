@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContentCard } from "@/components/ContentCard";
 import { ContentProgressBar } from "@/components/ContentProgressBar";
 import { JsonLd } from "@/components/JsonLd";
@@ -13,6 +14,15 @@ type ContentArticleProps = {
   related: ContentEntry[];
 };
 
+function formatContentDate(value: string) {
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
 export function ContentArticle({ entry, related }: ContentArticleProps) {
   const articleSchema = {
     "@context": "https://schema.org",
@@ -23,8 +33,9 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
     dateModified: entry.updated ?? entry.published,
     author: {
       "@type": "Person",
+      "@id": `${siteConfig.url}/about#harshit-bhatia`,
       name: entry.author,
-      url: siteConfig.url,
+      url: `${siteConfig.url}/about`,
     },
     mainEntityOfPage: `${siteConfig.url}${entry.url}`,
     keywords: entry.tags.join(", "),
@@ -52,8 +63,18 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
       <article className="px-6 pb-24 pt-32">
         <div className="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div>
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-[color:var(--accent)]">
-              {contentTypes[entry.type].label} / {entry.category}
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                {
+                  label: contentTypes[entry.type].label,
+                  href: contentTypes[entry.type].basePath,
+                },
+                { label: entry.title },
+              ]}
+            />
+            <p className="mt-6 text-sm font-medium uppercase tracking-[0.18em] text-[color:var(--accent)]">
+              {entry.category}
             </p>
             <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] text-[color:var(--foreground)] sm:text-6xl">
               {entry.title}
@@ -61,22 +82,62 @@ export function ContentArticle({ entry, related }: ContentArticleProps) {
             <p className="mt-6 max-w-[72ch] text-lg leading-8 text-[color:var(--muted)]">
               {entry.description}
             </p>
-            <div className="mt-6 flex flex-wrap gap-3 text-sm text-[color:var(--muted)]">
-              <span>{entry.published}</span>
-              <span aria-hidden="true">/</span>
-              <span>{entry.readingTime} min read</span>
-              {entry.difficulty ? (
-                <>
-                  <span aria-hidden="true">/</span>
-                  <span>{entry.difficulty}</span>
-                </>
-              ) : null}
-              {entry.series ? (
-                <>
-                  <span aria-hidden="true">/</span>
-                  <span>{entry.series}</span>
-                </>
-              ) : null}
+            <div className="mt-7 flex flex-col gap-5 border-y border-[color:var(--border)] py-5 sm:flex-row sm:items-center sm:justify-between">
+              <a
+                className="flex w-fit items-center gap-3 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
+                href="/about"
+                rel="author"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="size-11 rounded-full border border-[color:var(--border)] object-cover"
+                  height={88}
+                  src="/harshit-bhatia-avatar.jpeg"
+                  width={88}
+                />
+                <span>
+                  <span className="block text-xs uppercase tracking-[0.14em] text-[color:var(--muted)]">
+                    Written by
+                  </span>
+                  <span className="mt-1 block text-sm font-medium text-[color:var(--foreground)]">
+                    {entry.author}
+                  </span>
+                </span>
+              </a>
+              <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm text-[color:var(--muted)] sm:justify-end">
+                <span>
+                  Published{" "}
+                  <time dateTime={entry.published}>
+                    {formatContentDate(entry.published)}
+                  </time>
+                </span>
+                {entry.updated && entry.updated !== entry.published ? (
+                  <>
+                    <span aria-hidden="true">/</span>
+                    <span>
+                      Updated{" "}
+                      <time dateTime={entry.updated}>
+                        {formatContentDate(entry.updated)}
+                      </time>
+                    </span>
+                  </>
+                ) : null}
+                <span aria-hidden="true">/</span>
+                <span>{entry.readingTime} min read</span>
+                {entry.difficulty ? (
+                  <>
+                    <span aria-hidden="true">/</span>
+                    <span>{entry.difficulty}</span>
+                  </>
+                ) : null}
+                {entry.series ? (
+                  <>
+                    <span aria-hidden="true">/</span>
+                    <span>{entry.series}</span>
+                  </>
+                ) : null}
+              </div>
             </div>
             {entry.cover ? (
               <figure className="mt-10 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">

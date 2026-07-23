@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { Navbar } from "@/components/Navbar";
@@ -8,9 +9,9 @@ import { getBreadcrumbSchema, getPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = getPageMetadata({
-  title: "Harshit Bhatia CTO",
+  title: "CTO at Assert AI & Enterprise AI Architect",
   description:
-    "Harshit Bhatia is the Chief Technology Officer at Assert AI, based in Delhi, India, building enterprise agentic AI systems, computer vision platforms, and AI products.",
+    "Harshit Bhatia is the CTO at Assert AI, based in Delhi, India, building enterprise agentic AI systems, computer vision platforms, and AI products.",
   path: "/about",
 });
 
@@ -39,12 +40,11 @@ const personSchema = {
       siteConfig.url,
       siteConfig.links.linkedin,
       siteConfig.links.github,
+      siteConfig.companyTeamUrl,
     ],
-    jobTitle: "Chief Technology Officer",
+    jobTitle: siteConfig.role,
     worksFor: {
-      "@type": "Organization",
-      name: "Assert AI",
-      url: "https://www.linkedin.com/company/assert-ai/",
+      "@id": `${siteConfig.companyUrl}/#organization`,
     },
     homeLocation: {
       "@type": "Place",
@@ -81,8 +81,17 @@ export default function AboutPage() {
       <Navbar />
       <JsonLd data={[personSchema, breadcrumbSchema]} />
       <Section
+        breadcrumbs={
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "About Harshit Bhatia" },
+            ]}
+          />
+        }
         className="pt-32"
         eyebrow="About Harshit Bhatia"
+        headingLevel={1}
         title="Harshit Bhatia, CTO building Enterprise Agentic AI Systems."
       >
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
@@ -95,9 +104,9 @@ export default function AboutPage() {
               title="Harshit Bhatia, Chief Technology Officer at Assert AI"
               width={160}
             />
-            <h1 className="mt-6 text-3xl font-semibold text-[color:var(--foreground)]">
+            <h2 className="mt-6 text-3xl font-semibold text-[color:var(--foreground)]">
               Harshit Bhatia
-            </h1>
+            </h2>
             <p className="mt-2 text-base leading-7 text-[color:var(--muted)]">
               Chief Technology Officer at Assert AI
             </p>

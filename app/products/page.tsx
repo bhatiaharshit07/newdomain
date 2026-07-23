@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { Navbar } from "@/components/Navbar";
@@ -9,7 +10,7 @@ import { getBreadcrumbSchema, getPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = getPageMetadata({
-  title: "Products",
+  title: "Enterprise AI & Computer Vision Products",
   description:
     "Enterprise AI products and platforms for analytics, no-code AI workflows, warehouse intelligence, computer vision, and operations.",
   path: "/products",
@@ -42,8 +43,14 @@ export default function ProductsPage() {
       <Navbar />
       <JsonLd data={[breadcrumbSchema, productSchema]} />
       <Section
+        breadcrumbs={
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Products" }]}
+          />
+        }
         className="pt-32"
         eyebrow="Products"
+        headingLevel={1}
         title="Enterprise AI platforms built for operational reality."
       >
         <div className="space-y-8">

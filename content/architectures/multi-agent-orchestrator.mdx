@@ -60,17 +60,8 @@ The orchestrator should make these constraints explicit. If the design assumes p
 </Architecture>
 
 <Mermaid
-  chart={`graph LR
-User[User Goal] --> Router[Intent Router]
-Router --> Planner[Workflow Planner]
-Planner --> Policy[Policy Engine]
-Policy --> Agents[Specialist Agents]
-Agents --> Gateway[Tool Gateway]
-Gateway --> Systems[Enterprise Systems]
-Agents --> Memory[Memory Service]
-Agents --> Approval[Human Approval Queue]
-Agents --> Eval[Evaluation + Observability]
-Eval --> Ops[Operations Dashboard]`}
+  title="Multi-agent orchestration reference architecture"
+  chart="graph LR; User[User Goal] --> Router[Intent Router]; Router --> Planner[Workflow Planner]; Planner --> Policy[Policy Engine]; Policy --> Agents[Specialist Agents]; Agents --> Gateway[Tool Gateway]; Gateway --> Systems[Enterprise Systems]; Agents --> Memory[Memory Service]; Agents --> Approval[Human Approval Queue]; Agents --> Eval[Evaluation + Observability]; Eval --> Ops[Operations Dashboard]"
 />
 
 ## Component Responsibilities

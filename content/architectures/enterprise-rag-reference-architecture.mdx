@@ -46,23 +46,8 @@ The architecture should be designed around these constraints from day one. Addin
 ## Reference Architecture
 
 <Mermaid
-  chart={`graph LR
-Sources[Enterprise Sources] --> Connectors[Source Connectors]
-Connectors --> Ingestion[Ingestion Pipeline]
-Ingestion --> Classifier[Document Classifier]
-Classifier --> Chunking[Chunking + Metadata]
-Chunking --> PermissionIndex[Permission Index]
-Chunking --> Lexical[Lexical Index]
-Chunking --> Vector[Vector Index]
-Lexical --> Retriever[Hybrid Retriever]
-Vector --> Retriever
-PermissionIndex --> Retriever
-Retriever --> Reranker[Reranker]
-Reranker --> Context[Context Builder]
-Context --> Generator[Answer Generator]
-Generator --> Citations[Citations + Evidence]
-Generator --> Eval[Evaluation + Feedback]
-Eval --> Quality[Quality Dashboard]`}
+  title="Enterprise RAG reference architecture"
+  chart="graph LR; Sources[Enterprise Sources] --> Connectors[Source Connectors]; Connectors --> Ingestion[Ingestion Pipeline]; Ingestion --> Classifier[Document Classifier]; Classifier --> Chunking[Chunking + Metadata]; Chunking --> PermissionIndex[Permission Index]; Chunking --> Lexical[Lexical Index]; Chunking --> Vector[Vector Index]; Lexical --> Retriever[Hybrid Retriever]; Vector --> Retriever; PermissionIndex --> Retriever; Retriever --> Reranker[Reranker]; Reranker --> Context[Context Builder]; Context --> Generator[Answer Generator]; Generator --> Citations[Citations + Evidence]; Generator --> Eval[Evaluation + Feedback]; Eval --> Quality[Quality Dashboard]"
 />
 
 ## Components

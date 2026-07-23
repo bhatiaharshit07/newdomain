@@ -123,17 +123,7 @@ Core runtime capabilities:
 - Rollback plan
 - Human approval
 
-<Mermaid
-  chart={`graph LR
-User[User Workflow] --> App[Product App]
-App --> Gateway[AI Gateway]
-Gateway --> Policy[Policy + Permissions]
-Gateway --> Retrieval[Retrieval + Context]
-Gateway --> Model[Model Router]
-Model --> Eval[Evaluation Hooks]
-Eval --> Trace[Trace Store]
-Trace --> Dashboard[Quality Dashboard]`}
-/>
+<Mermaid chart="graph LR; User[User Workflow] --> App[Product App]; App --> Gateway[AI Gateway]; Gateway --> Policy[Policy + Permissions]; Gateway --> Retrieval[Retrieval + Context]; Gateway --> Model[Model Router]; Model --> Eval[Evaluation Hooks]; Eval --> Trace[Trace Store]; Trace --> Dashboard[Quality Dashboard]" />
 
 ## Prompt and Model Versioning
 

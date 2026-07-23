@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { MermaidDiagram } from "@/components/MermaidDiagram";
 
 function getTextId(children: ReactNode): string | undefined {
   if (typeof children !== "string") {
@@ -49,14 +50,14 @@ function Architecture({
   );
 }
 
-function Mermaid({ chart }: { chart: string }) {
-  return (
-    <figure className="my-8 overflow-hidden rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
-      <pre className="overflow-x-auto p-5 text-sm leading-7 text-[color:var(--foreground)]">
-        <code>{chart}</code>
-      </pre>
-    </figure>
-  );
+function Mermaid({
+  chart,
+  title = "Architecture flow diagram",
+}: {
+  chart: string;
+  title?: string;
+}) {
+  return <MermaidDiagram chart={chart} title={title} />;
 }
 
 function CodeBlock({ children }: { children: ReactNode }) {

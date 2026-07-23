@@ -2,12 +2,15 @@ export function Footer() {
   const footerLinks = [
     { label: "Enterprise Agentic AI Systems", href: "/#top" },
     { label: "About Harshit Bhatia", href: "/about" },
+    { label: "Products", href: "/products" },
+    { label: "Projects", href: "/projects" },
     { label: "Insights", href: "/insights" },
     { label: "Architecture", href: "/architecture" },
     { label: "Playbooks", href: "/playbooks" },
     { label: "Research", href: "/research" },
-    { label: "Projects", href: "/projects" },
     { label: "Speaking", href: "/talks" },
+    { label: "Search", href: "/search" },
+    { label: "Contact", href: "/#contact" },
     { label: "GitHub", href: "https://github.com/bhatiaharshit07" },
     {
       label: "LinkedIn",
