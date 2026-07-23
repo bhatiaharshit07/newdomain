@@ -22,6 +22,19 @@ export const siteConfig = {
       period: "Apr 2017 - May 2021",
     },
   ],
+  patent: {
+    title:
+      "System and method for personalizing a computer vision model based on use cases",
+    identifier: "US12482245B2",
+    number: "US 12,482,245 B2",
+    publicationNumber: "US 2025/0252720 A1",
+    status: "Granted",
+    granted: "25 November 2025",
+    grantedIso: "2025-11-25",
+    assignee: "Assert Secure Tech Pvt Ltd",
+    inventors: ["Job Varughese Philip", "Harshit Bhatia", "Happy Mishra"],
+    url: "https://patents.google.com/patent/US12482245B2/en",
+  },
   keywords: [
     "Harshit Bhatia",
     "Harshit Bhatia CTO",

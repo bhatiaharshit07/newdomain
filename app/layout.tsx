@@ -122,6 +122,7 @@ const structuredData = [
       "@type": "CollegeOrUniversity",
       name: education.school,
     })),
+    award: `Co-inventor, United States Patent ${siteConfig.patent.number}`,
     url: `${siteConfig.url}/about`,
     sameAs: [
       siteConfig.links.linkedin,

@@ -14,6 +14,10 @@
 - [Indian School of Business](https://harshitbhatia.in/about): Emerging Leaders Programme in Organizational Leadership, completed from Jun 2024 to Jan 2025.
 - [Maharaja Surajmal Institute Of Technology](https://harshitbhatia.in/about): Bachelor of Technology, completed from Apr 2017 to May 2021.
 
+## Patent
+
+- [US Patent 12,482,245 B2](https://patents.google.com/patent/US12482245B2/en): Harshit Bhatia is a co-inventor of "System and method for personalizing a computer vision model based on use cases," granted on 25 November 2025.
+
 ## Core Pages
 
 - [Home](https://harshitbhatia.in/): Primary website homepage for Harshit Bhatia.
